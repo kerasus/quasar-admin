@@ -1,20 +1,26 @@
 <template>
-  <entity-show
+  <entity-edit
     v-model:value="inputs"
     title="اطلاعات کاربر"
     :api="api"
+    :entity-id-key="entityIdKey"
+    :entity-param-key="entityParamKey"
+    :show-route-name="showRouteName"
   />
 </template>
 
 <script>
-import EntityShow from 'components/Entity/Show/EntityShow'
+import EntityEdit from 'components/Entity/Edit/EntityEdit'
 export default {
   name: 'Show',
-  components: { EntityShow },
+  components: { EntityEdit },
   data () {
     return {
       expanded: true,
       api: '/reqres/api/users',
+      entityIdKey: 'id',
+      entityParamKey: 'id',
+      showRouteName: 'Admin.User.Show',
       inputs: [
         { type: 'avatar', name: 'avatar', responseKey: 'data.avatar', value: null, size: '150px', col: 'col-md-12' },
         { type: 'input', name: 'id', responseKey: 'data.id', value: 'null', label: 'شناسه', col: 'col-md-3' },
