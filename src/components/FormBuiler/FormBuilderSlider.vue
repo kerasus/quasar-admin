@@ -8,6 +8,7 @@
       v-model="inputData"
       :min="min"
       :max="max"
+      :disable="disable"
     />
   </div>
 </template>
@@ -31,6 +32,10 @@ export default {
     label: {
       default: '',
       type: String
+    },
+    disable: {
+      default: false,
+      type: Boolean
     }
   },
   methods: {

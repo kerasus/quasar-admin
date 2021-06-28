@@ -1,5 +1,5 @@
 <template>
-  <q-input @input="change($event)" v-model="inputData" :label="label" />
+  <q-input @input="change($event)" v-model="inputData" :label="label" :disable="disable" />
 </template>
 
 <script>
@@ -14,6 +14,10 @@ export default {
     label: {
       default: '',
       type: String
+    },
+    disable: {
+      default: false,
+      type: Boolean
     }
   },
   mixins: [inputMixin]

@@ -9,21 +9,21 @@
           بارگذاری مجدد
         </q-tooltip>
       </q-btn>
+      <q-btn flat round icon="edit" @click="goToEditView()">
+        <q-tooltip>
+          ویرایش
+        </q-tooltip>
+      </q-btn>
       <q-btn flat round :icon="(expanded) ? 'expand_less' : 'expand_more'" @click="expanded = !expanded">
         <q-tooltip>
           <span v-if="expanded">عدم نمایش فرم</span>
           <span v-else>نمایش فرم</span>
         </q-tooltip>
       </q-btn>
-      <q-btn flat round icon="settings">
-        <q-tooltip>
-          تنظیمات
-        </q-tooltip>
-      </q-btn>
     </template>
     <template v-slot:content>
       <q-expansion-item v-model="expanded">
-        <form-builder v-model="inputData" />
+        <form-builder v-model:value="inputData" disable />
         <q-inner-loading :showing="loading">
           <q-spinner-ball color="primary" size="50px" />
         </q-inner-loading>
@@ -53,6 +53,18 @@ export default {
       default: '',
       type: String
     },
+    entityIdKey: {
+      default: 'id',
+      type: String
+    },
+    entityParamKey: {
+      default: 'id',
+      type: String
+    },
+    editRouteName: {
+      default: '',
+      type: String
+    },
     table: {
       default: () => {
         return {
@@ -78,6 +90,17 @@ export default {
     this.getData()
   },
   methods: {
+    getEntityId () {
+      const target = this.inputData.find(item => item.name.toString() === this.entityIdKey.toString())
+      if (!target) {
+        return false
+      }
+
+      return target.value
+    },
+    goToEditView () {
+      this.$router.push({ name: this.editRouteName, params: { [this.entityParamKey]: this.getEntityId() } })
+    },
     toggleFullscreen () {
       const target = this.$refs.portlet
       this.$q.fullscreen.toggle(target)

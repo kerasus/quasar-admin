@@ -8,6 +8,7 @@
       :inline="inline"
       :dense="dense"
       :type="type"
+      :disable="disable"
     />
   </div>
 </template>
@@ -38,6 +39,10 @@ export default {
     },
     dense: {
       default: true,
+      type: Boolean
+    },
+    disable: {
+      default: false,
       type: Boolean
     }
   },

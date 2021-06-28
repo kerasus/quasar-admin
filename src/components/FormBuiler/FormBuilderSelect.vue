@@ -13,6 +13,7 @@
     input-debounce="0"
     behavior="dialog"
     @filter="filterFn"
+    :disable="disable"
   >
     <template v-slot:no-option>
       <q-item>
@@ -52,6 +53,10 @@ export default {
     label: {
       default: '',
       type: String
+    },
+    disable: {
+      default: false,
+      type: Boolean
     }
   },
   mixins: [inputMixin],

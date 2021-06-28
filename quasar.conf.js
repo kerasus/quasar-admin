@@ -81,7 +81,9 @@ const config = {
 
   // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
   framework: {
-    config: {},
+    config: {
+      notify: { /* look at QuasarConfOptions from the API card */ }
+    },
 
     // Possible values for "importStrategy":
     // * 'auto' - (DEFAULT) Auto-import needed Quasar components & directives
@@ -99,7 +101,9 @@ const config = {
     // directives: [],
 
     // Quasar plugins
-    plugins: []
+    plugins: [
+      'Notify'
+    ]
   },
 
   // animations: 'all', // --- includes all animations
@@ -215,6 +219,7 @@ function setProxy (proxy, key, target) {
 }
 
 setProxy(config.devServer.proxy, '/reqres/api', 'https://reqres.in/api')
+setProxy(config.devServer.proxy, '/alaa/api/v2', 'https://alaatv.com/api/v2')
 
 module.exports = function (ctx) {
   // https://v2.quasar.dev/quasar-cli/developing-ssr/configuring-ssr

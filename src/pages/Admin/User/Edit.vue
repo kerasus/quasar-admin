@@ -3,9 +3,6 @@
     v-model:value="inputs"
     title="اطلاعات کاربر"
     :api="api"
-    :entity-id-key="entityIdKey"
-    :entity-param-key="entityParamKey"
-    :edit-route-name="editRouteName"
   />
 </template>
 
@@ -18,9 +15,6 @@ export default {
     return {
       expanded: true,
       api: '/reqres/api/users',
-      entityIdKey: 'id',
-      entityParamKey: 'id',
-      editRouteName: 'Admin.User.Edit',
       inputs: [
         { type: 'avatar', name: 'avatar', responseKey: 'data.avatar', value: null, size: '150px', col: 'col-md-12' },
         { type: 'input', name: 'id', responseKey: 'data.id', value: 'null', label: 'شناسه', col: 'col-md-3' },

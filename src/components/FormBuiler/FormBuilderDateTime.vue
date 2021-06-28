@@ -1,10 +1,10 @@
 <template>
   <div>
-    <q-input filled @input="change($event)" v-model="outputText" dir="ltr" readonly >
+    <q-input filled @input="change($event)" v-model="outputText" dir="ltr" readonly :disable="disable">
       <template v-if="canShowDate" v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-date v-model="inputData" calendar="persian" :mask="mask" :range="range" :multiple="multiple">
+            <q-date v-model="inputData" calendar="persian" :mask="mask" :range="range" :multiple="multiple" :disable="disable">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="بستن" color="primary" flat />
               </div>
@@ -15,7 +15,7 @@
       <template v-if="canShowTime" v-slot:append>
         <q-icon name="access_time" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-time v-model="inputData" :mask="mask" format24h>
+            <q-time v-model="inputData" :mask="mask" format24h :disable="disable">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="بستن" color="primary" flat />
               </div>
@@ -45,6 +45,10 @@ export default {
       type: Boolean
     },
     multiple: {
+      default: false,
+      type: Boolean
+    },
+    disable: {
       default: false,
       type: Boolean
     }
