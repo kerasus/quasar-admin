@@ -1,18 +1,15 @@
 <template>
   <div>
-    Index
+    Register
   </div>
 </template>
 
 <script>
 export default {
-  name: 'PageIndex',
-  data () {
-    return {
-    }
-  }
+  name: 'Register'
 }
 </script>
 
-<style lang="scss">
+<style scoped>
+
 </style>

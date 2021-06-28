@@ -12,8 +12,8 @@
 // to match your app's branding.
 // Tip: Use the "Theme Builder" on Quasar's documentation website.
 
-$primary   : #1976D2;
-$secondary : #26A69A;
+$primary   : #30A180;
+$secondary : #EFFFFB;
 $accent    : #9C27B0;
 
 $dark      : #1D1D1D;
@@ -22,3 +22,24 @@ $positive  : #21BA45;
 $negative  : #C10015;
 $info      : #31CCEC;
 $warning   : #F2C037;
+
+//$typography-font-family : 'Sahel', sans-serif !default
+$typography-font-family : 'IRANSans', sans-serif !default;
+$body-font-size   : 10px !default;
+//$button-font-size  : 9px !default;
+$toolbar-title-font-size : 12px !default;
+$body-line-height : 1.5 !default;
+$typography-font-color : #363636;
+
+body {
+  color: $typography-font-color;
+}
+.q-bar--standard {
+  font-size: 12px;
+}
+.q-bar--standard .q-btn {
+  font-size: 10px;
+}
+.q-bar--standard {
+  padding: 0 10px;
+}

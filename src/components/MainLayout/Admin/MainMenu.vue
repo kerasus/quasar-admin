@@ -1,0 +1,87 @@
+<template>
+  <q-list class="text-primary">
+    <q-item-label
+      header
+      class="text-grey-8"
+    >
+      منوی ادمین
+    </q-item-label>
+    <q-item
+      clickable
+      v-ripple
+      @click="logout"
+    >
+      <q-item-section avatar>
+        <q-icon name="logout" />
+      </q-item-section>
+      <q-item-section>خروج</q-item-section>
+    </q-item>
+    <q-separator spaced />
+    <q-item
+      v-for="item in menuItems"
+      :key="item.title"
+      tag="a"
+      clickable
+      v-ripple
+      :active="$route.name === item.routeName"
+      :to="{name: item.routeName}"
+    >
+      <q-item-section avatar>
+        <q-icon :name="item.icon" />
+      </q-item-section>
+      <q-item-section>{{ item.title }}</q-item-section>
+    </q-item>
+
+  </q-list>
+</template>
+
+<script>
+export default {
+  name: 'MainMenu',
+  data () {
+    return {
+      menuItems: [
+        {
+          title: 'Inbox',
+          icon: 'inbox',
+          routeName: ''
+        },
+        {
+          title: 'Outbox',
+          icon: 'send',
+          routeName: ''
+        },
+        {
+          title: 'Trash',
+          icon: 'delete',
+          routeName: ''
+        },
+        {
+          title: 'کاربران',
+          icon: 'delete',
+          routeName: 'Admin.User.Index'
+        },
+        {
+          title: 'بانک سوال',
+          icon: 'storage',
+          routeName: 'EntityIndex'
+        },
+        {
+          title: 'نمونه نمایش',
+          icon: 'storage',
+          routeName: 'EntityShoew'
+        }
+      ]
+    }
+  },
+  methods: {
+    logout () {
+      this.$router.push({ name: 'login' })
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

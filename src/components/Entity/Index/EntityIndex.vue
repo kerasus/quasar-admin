@@ -1,0 +1,264 @@
+<template>
+  <portlet>
+    <template v-slot:title>
+      {{ title }}
+    </template>
+    <template v-slot:toolbar>
+      <q-btn flat round icon="search" @click="search">
+        <q-tooltip>
+          جستجو
+        </q-tooltip>
+      </q-btn>
+      <q-btn flat round icon="fullscreen">
+        <q-tooltip>
+          نمایش تمام صفحه
+        </q-tooltip>
+      </q-btn>
+      <q-btn flat round icon="fullscreen_exit">
+        <q-tooltip>
+          نمایش عادی
+        </q-tooltip>
+      </q-btn>
+      <q-btn flat round icon="cached" @click="reload">
+        <q-tooltip>
+          بارگذاری مجدد
+        </q-tooltip>
+      </q-btn>
+      <q-btn flat round :icon="(expanded) ? 'expand_less' : 'expand_more'" @click="expanded = !expanded">
+        <q-tooltip>
+          <span v-if="expanded">عدم نمایش فرم</span>
+          <span v-else>نمایش فرم</span>
+        </q-tooltip>
+      </q-btn>
+      <q-btn flat round icon="settings">
+        <q-tooltip>
+          تنظیمات
+        </q-tooltip>
+      </q-btn>
+    </template>
+    <template v-slot:content>
+      <q-expansion-item v-model="expanded">
+        <form-builder v-model="inputData" />
+        <div class="row">
+          <div class="col">
+            <EntityIndexTable
+              v-model:value="tableData"
+              :columns="table.columns"
+              :title="title"
+              :loading="loading"
+              :change-page="changePage"
+            >
+              <template v-slot:entity-index-table-cell="{inputData}">
+                <slot name="table-cell" v-bind:inputData="inputData" v-bind:showConfirmRemoveDialog="showConfirmRemoveDialog">
+                  <q-td :props="inputData.props">
+                    {{ inputData.props.value }}
+                  </q-td>
+                </slot>
+              </template>
+            </EntityIndexTable>
+          </div>
+        </div>
+      </q-expansion-item>
+      <q-dialog v-model="confirmRemoveDoalog" persistent>
+        <q-card>
+          <q-card-section class="row items-center">
+            <q-icon name="warning" color="primary" size="md"/>
+            <span class="q-ml-sm">{{ confirmRemoveMessage }}</span>
+          </q-card-section>
+
+          <q-card-actions align="right">
+            <q-btn flat label="انصراف" color="primary" v-close-popup />
+            <q-btn flat label="تایید" color="primary" v-close-popup @click="removeItem" />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
+    </template>
+  </portlet>
+</template>
+
+<script>
+import axios from 'axios'
+import Portlet from 'components/Portlet'
+import inputMixin from 'components/FormBuiler/inputMixin'
+import FormBuilder from 'components/FormBuiler/FormBuilder'
+import EntityIndexTable from 'components/Entity/Index/EntityIndexTable'
+
+export default {
+  name: 'EntityIndex',
+  props: {
+    value: {
+      default: () => [],
+      type: Array
+    },
+    title: {
+      default: '',
+      type: String
+    },
+    api: {
+      default: '',
+      type: String
+    },
+    tableKeys: {
+      default: () => {
+        return {
+          data: '',
+          total: ''
+        }
+      },
+      type: Object
+    },
+    table: {
+      default: () => {
+        return {
+          columns: [],
+          data: []
+        }
+      },
+      type: Object
+    }
+  },
+  mixins: [inputMixin],
+  components: { Portlet, EntityIndexTable, FormBuilder },
+  data () {
+    return {
+      removeIdKey: 'id',
+      confirmRemoveDoalog: false,
+      confirmRemoveMessage: 'false',
+      selectedItemToRemove: null,
+      expanded: true,
+      loading: false,
+      tableData: {
+        data: [],
+        pagination: {
+          sortBy: 'desc',
+          descending: false,
+          page: 1,
+          rowsPerPage: 10,
+          pageKey: 'page',
+          rowsNumber: 0
+        }
+      }
+    }
+  },
+  mounted () {
+    this.search()
+  },
+  methods: {
+    showConfirmRemoveDialog (item, idKey, lable) {
+      if (idKey) {
+        this.removeIdKey = idKey
+      }
+      this.confirmRemoveMessage = lable
+      if (!lable) {
+        this.confirmRemoveMessage = 'آیا از حذف مورد اطمینان دارید؟'
+      }
+      this.selectedItemToRemove = item
+      this.confirmRemoveDoalog = true
+    },
+    removeItem () {
+      if (this.selectedItemToRemove === null) {
+        return
+      }
+
+      const that = this
+      this.loading = true
+      axios.delete(this.api + '/' + this.selectedItemToRemove[this.removeIdKey])
+        .then(() => {
+          that.reload()
+        })
+        .catch(() => {
+          that.loading = false
+        })
+    },
+    changePage (pagination) {
+      this.clearDara()
+      this.refreshPagination()
+      this.getData(this.api, pagination.page)
+    },
+    getValidChainedObject (object, keys) {
+      if (keys.length === 1) {
+        if (typeof object[keys[0]] !== 'undefined' && object[keys[0]] !== null) {
+          return object[keys[0]]
+        }
+        return false
+      }
+
+      if (typeof object[keys[0]] !== 'undefined' && object[keys[0]] !== null) {
+        return this.getValidChainedObject(object[keys[0]], keys.splice(1))
+      }
+
+      return (typeof object[keys[0]] !== 'undefined' && object[keys[0]] !== null)
+    },
+    refreshPagination () {
+      this.tableData.pagination = {
+        sortBy: 'desc',
+        descending: false,
+        page: 1,
+        rowsPerPage: 10,
+        pageKey: 'page',
+        rowsNumber: 0
+      }
+    },
+    clearDara () {
+      this.tableData.data = []
+    },
+    reload () {
+      this.clearDara()
+      this.getData(this.api, this.tableData.pagination.page)
+    },
+    search () {
+      this.changePage(this.api, undefined)
+    },
+    getData (address, page) {
+      const that = this
+      this.loading = true
+      if (!address) {
+        address = this.api
+      }
+
+      axios.get(address, {
+        params: that.createParams(page)
+      })
+        .then((response) => {
+          that.loading = false
+
+          const dataaa = that.getValidChainedObject(response.data, that.tableKeys.data.split('.'))
+          that.tableData.data = dataaa
+          that.tableData.pagination.rowsNumber = that.getValidChainedObject(response.data, that.tableKeys.total.split('.'))
+          that.tableData.pagination.page = that.getValidChainedObject(response.data, that.tableKeys.currentPage.split('.'))
+          that.tableData.pagination.rowsPerPage = that.getValidChainedObject(response.data, that.tableKeys.perPage.split('.'))
+
+          // that.app.set(that.tableData, 'data', that.getValidChainedObject(response.data, that.tableKeys.data.split('.')))
+          // that.app.set(that.tableData.pagination, 'rowsNumber', that.getValidChainedObject(response.data, that.tableKeys.total.split('.')))
+          // that.app.set(that.tableData.pagination, 'page', that.getValidChainedObject(response.data, that.tableKeys.currentPage.split('.')))
+          // that.app.set(that.tableData.pagination, 'rowsPerPage', that.getValidChainedObject(response.data, that.tableKeys.perPage.split('.')))
+
+          that.$emit('onPageChanged', response)
+        })
+        .catch(error => {
+          that.loading = false
+          that.$emit('catchError', error)
+        })
+    },
+    createParams (page) {
+      const params = {}
+      this.inputData.forEach(item => {
+        if (typeof item.name !== 'undefined' && item.name !== null) {
+          params[item.name] = item.value
+        }
+      })
+
+      if (typeof page !== 'undefined') {
+        params[this.tableData.pagination.pageKey] = page
+      }
+
+      return params
+    }
+  }
+}
+</script>
+
+<style lang="sass">
+.q-expansion-item__container .q-item
+  display: none
+</style>
