@@ -79,6 +79,7 @@
 <script>
 import axios from 'axios'
 import Portlet from 'components/Portlet'
+import EntityMixin from 'components/Entity/EntityMixin'
 import inputMixin from 'components/FormBuiler/inputMixin'
 import FormBuilder from 'components/FormBuiler/FormBuilder'
 import EntityIndexTable from 'components/Entity/Index/EntityIndexTable'
@@ -117,7 +118,7 @@ export default {
       type: Object
     }
   },
-  mixins: [inputMixin],
+  mixins: [inputMixin, EntityMixin],
   components: { Portlet, EntityIndexTable, FormBuilder },
   data () {
     return {
@@ -174,20 +175,6 @@ export default {
       this.clearDara()
       this.refreshPagination()
       this.getData(this.api, pagination.page)
-    },
-    getValidChainedObject (object, keys) {
-      if (keys.length === 1) {
-        if (typeof object[keys[0]] !== 'undefined' && object[keys[0]] !== null) {
-          return object[keys[0]]
-        }
-        return false
-      }
-
-      if (typeof object[keys[0]] !== 'undefined' && object[keys[0]] !== null) {
-        return this.getValidChainedObject(object[keys[0]], keys.splice(1))
-      }
-
-      return (typeof object[keys[0]] !== 'undefined' && object[keys[0]] !== null)
     },
     refreshPagination () {
       this.tableData.pagination = {
