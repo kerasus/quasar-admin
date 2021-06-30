@@ -14,6 +14,11 @@
           ویرایش
         </q-tooltip>
       </q-btn>
+      <q-btn flat round icon="list" @click="goToIndexView()">
+        <q-tooltip>
+          لیست
+        </q-tooltip>
+      </q-btn>
       <q-btn flat round :icon="(expanded) ? 'expand_less' : 'expand_more'" @click="expanded = !expanded">
         <q-tooltip>
           <span v-if="expanded">عدم نمایش فرم</span>
@@ -62,6 +67,10 @@ export default {
       type: String
     },
     editRouteName: {
+      default: '',
+      type: String
+    },
+    indexRouteName: {
       default: '',
       type: String
     },

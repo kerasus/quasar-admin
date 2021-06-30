@@ -9,16 +9,6 @@
           جستجو
         </q-tooltip>
       </q-btn>
-      <q-btn flat round icon="fullscreen">
-        <q-tooltip>
-          نمایش تمام صفحه
-        </q-tooltip>
-      </q-btn>
-      <q-btn flat round icon="fullscreen_exit">
-        <q-tooltip>
-          نمایش عادی
-        </q-tooltip>
-      </q-btn>
       <q-btn flat round icon="add" @click="goToCreatePage">
         <q-tooltip>
           جدید
@@ -33,11 +23,6 @@
         <q-tooltip>
           <span v-if="expanded">عدم نمایش فرم</span>
           <span v-else>نمایش فرم</span>
-        </q-tooltip>
-      </q-btn>
-      <q-btn flat round icon="settings">
-        <q-tooltip>
-          تنظیمات
         </q-tooltip>
       </q-btn>
     </template>
