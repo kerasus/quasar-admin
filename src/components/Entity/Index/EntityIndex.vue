@@ -19,6 +19,11 @@
           نمایش عادی
         </q-tooltip>
       </q-btn>
+      <q-btn flat round icon="add" @click="goToCreatePage">
+        <q-tooltip>
+          جدید
+        </q-tooltip>
+      </q-btn>
       <q-btn flat round icon="cached" @click="reload">
         <q-tooltip>
           بارگذاری مجدد
@@ -99,6 +104,10 @@ export default {
       default: '',
       type: String
     },
+    createRouteName: {
+      default: '',
+      type: String
+    },
     tableKeys: {
       default: () => {
         return {
@@ -145,6 +154,9 @@ export default {
     this.search()
   },
   methods: {
+    goToCreatePage () {
+      this.$router.push({ name: this.createRouteName })
+    },
     showConfirmRemoveDialog (item, idKey, lable) {
       if (idKey) {
         this.removeIdKey = idKey

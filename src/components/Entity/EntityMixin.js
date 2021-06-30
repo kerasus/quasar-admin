@@ -10,6 +10,22 @@ const EntityMixin = {
 
       return target.value
     },
+    goToIndexView () {
+      this.$router.push({ name: this.indexRouteName })
+    },
+    goToShowView () {
+      this.$router.push({ name: this.showRouteName, params: { [this.entityParamKey]: this.getEntityId() } })
+    },
+    getFormData () {
+      const data = {}
+      this.inputData.forEach(item => {
+        if (item.disable === false) {
+          data[item.name] = item.value
+        }
+      })
+
+      return data
+    },
     toggleFullscreen () {
       const target = this.$refs.portlet
       this.$q.fullscreen.toggle(target)
