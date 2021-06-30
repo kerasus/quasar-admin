@@ -17,12 +17,12 @@ const routes = [
         children: [
           { name: 'Admin.Settings', path: 'settings', component: () => import('pages/Admin/Settings') },
           {
-            path: 'user',
+            path: '/users',
             component: () => import('pages/Admin/index'),
             children: [
-              { name: 'Admin.User.Index', path: 'index', component: () => import('pages/Admin/User/Index') },
-              { name: 'Admin.User.Show', path: 'show/:id', component: () => import('pages/Admin/User/Show') },
-              { name: 'Admin.User.Edit', path: 'edit/:id', component: () => import('pages/Admin/User/Edit') }
+              { name: 'Admin.User.Index', path: '', component: () => import('pages/Admin/User/Index') },
+              { name: 'Admin.User.Show', path: ':id', component: () => import('pages/Admin/User/Show') },
+              { name: 'Admin.User.Edit', path: ':id/edit', component: () => import('pages/Admin/User/Edit') }
             ]
           }
         ]
