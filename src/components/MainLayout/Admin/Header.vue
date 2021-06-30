@@ -1,52 +1,60 @@
 <template>
-  <q-toolbar class="app-header" :class="{'title-in-center': titleCentered}">
-    <q-btn
-      v-if="false"
-      flat
-      dense
-      round
-      icon="menu"
-      aria-label="Menu"
-      @click="toggleDrawer"
-    />
-    <q-btn
-      v-if="showBtnShare"
-      flat
-      dense
-      round
-      icon="share"
-      aria-label="Menu"
-    />
-    <q-toolbar-title v-if="showTitle" class="text-center">
-      {{ title }}
+
+  <q-toolbar>
+    <q-btn v-if="layoutLeftDrawer" dense flat round :icon="'menu'" @click="updateLayoutLeftDrawerVisible(!layoutLeftDrawerVisible)" />
+
+    <q-toolbar-title>
+      <q-avatar>
+        <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
+      </q-avatar>
+      Layout Builder
     </q-toolbar-title>
-    <q-space />
-    <q-btn
-      v-if="showBtnBack"
-      flat
-      dense
-      round
-      icon="arrow_back"
-      aria-label="Menu"
-      @click="goBack"
-    />
-    <q-btn
-      v-if="showBtnSearch"
-      flat
-      dense
-      round
-      icon="search"
-      aria-label="Menu"
-    />
-    <div></div>
+
+    <q-btn v-if="layoutRightDrawer" dense flat round :icon="'menu'" @click="updateLayoutRightDrawerVisible(!layoutRightDrawerVisible)" />
   </q-toolbar>
+
+  <q-tabs v-if="layoutHeaderNacTabs" v-model="layoutHeaderNacTabsModel" align="left">
+    <q-tab name="tab1" label="Tab One" />
+    <q-tab name="tab2" label="Tab Two" />
+    <q-tab name="tab3" label="Tab Three" />
+  </q-tabs>
+
 </template>
 
 <script>
+import { mapGetters, mapMutations, mapState } from 'vuex'
+
 export default {
   name: 'Header',
   props: ['value'],
   computed: {
+    ...mapGetters('AppLayout', [
+      'layoutView',
+      'layoutHeaderReveal',
+      'layoutHeaderElevated',
+      'layoutHeaderBordered',
+      'layoutHeaderNacTabs',
+      'layoutLeftDrawer',
+      'layoutLeftDrawerVisible',
+      'layoutLeftDrawerBehavior',
+      'layoutLeftDrawerOverlay',
+      'layoutLeftDrawerElevated',
+      'layoutLeftDrawerBordered',
+      'layoutRightDrawer',
+      'layoutRightDrawerVisible',
+      'layoutRightDrawerBehavior',
+      'layoutRightDrawerOverlay',
+      'layoutRightDrawerElevated',
+      'layoutRightDrawerBordered',
+      'layoutFooterReveal',
+      'layoutFooterElevated',
+      'layoutFooterBordered'
+    ]),
+    ...mapState('AppLayout', [
+      'layoutHeader',
+      'layoutHeaderNacTabsModel',
+      'layoutFooter'
+    ]),
     title () {
       return this.$store.getters['AppLayout/headerTitle']
     },
@@ -71,6 +79,10 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('AppLayout', [
+      'updateLayoutRightDrawerVisible',
+      'updateLayoutLeftDrawerVisible'
+    ]),
     goBack () {
       this.$router.go(-1)
     },

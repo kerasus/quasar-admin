@@ -1,32 +1,5 @@
 <template>
   <q-layout :view="view">
-    <q-header
-      v-if="pick.header"
-      v-model="play.header"
-      :reveal="cfg.headerReveal"
-      :elevated="cfg.headerSep === 'elevated'"
-      :bordered="cfg.headerSep === 'bordered'"
-      height-hint="98"
-    >
-      <q-toolbar>
-        <q-btn v-if="pick.left" dense flat round :icon="mdiMenu" @click="play.left = !play.left" />
-
-        <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
-          </q-avatar>
-          Layout Builder
-        </q-toolbar-title>
-
-        <q-btn v-if="pick.right" dense flat round :icon="mdiMenu" @click="play.right = !play.right" />
-      </q-toolbar>
-
-      <q-tabs v-if="pick.navtabs" v-model="navTabModel" align="left">
-        <q-tab name="tab1" label="Tab One" />
-        <q-tab name="tab2" label="Tab Two" />
-        <q-tab name="tab3" label="Tab Three" />
-      </q-tabs>
-    </q-header>
 
     <q-page-container>
       <q-page padding class="flex justify-center items-start">
@@ -295,81 +268,15 @@
       </q-page>
     </q-page-container>
 
-    <q-drawer
-      v-if="pick.left"
-      v-model="play.left"
-      show-if-above
-      :behavior="cfg.leftBehavior"
-      :overlay="cfg.leftOverlay"
-      :elevated="cfg.leftSep === 'elevated'"
-      :bordered="cfg.leftSep === 'bordered'"
-      :breakpoint="1023"
-    >
-      <q-scroll-area class="fit">
-        <q-item-label header>Left Drawer</q-item-label>
-        <div v-if="play.scroll" class="text-grey" style="padding: 25px 16px 16px;">
-          <p v-for="n in 50" :key="`right-${n}`">
-            <em>Left Drawer has intended scroll</em>
-          </p>
-        </div>
-      </q-scroll-area>
-    </q-drawer>
-
-    <q-drawer
-      v-if="pick.right"
-      v-model="play.right"
-      show-if-above
-      side="right"
-      :behavior="cfg.rightBehavior"
-      :overlay="cfg.rightOverlay"
-      :elevated="cfg.rightSep === 'elevated'"
-      :bordered="cfg.rightSep === 'bordered'"
-      :breakpoint="1023"
-    >
-      <q-scroll-area style="height: calc(100% - 204px); margin-top: 204px">
-        <q-item-label header>Right Drawer</q-item-label>
-        <div v-if="play.scroll" class="text-grey" style="padding: 25px 16px 16px;">
-          <p v-for="n in 50" :key="`right-${n}`">
-            <em>Right Drawer has intended scroll</em>
-          </p>
-        </div>
-      </q-scroll-area>
-
-      <q-img class="absolute-top" src="https://cdn.quasar.dev/img/material.png" style="height: 204px">
-        <div class="absolute-bottom bg-transparent">
-          <q-avatar size="56px" class="q-mb-sm">
-            <img src="https://cdn.quasar.dev/img/boy-avatar.png">
-          </q-avatar>
-          <div class="text-weight-bold">Razvan Stoenescu</div>
-          <div>@rstoenescu</div>
-        </div>
-      </q-img>
-    </q-drawer>
-
-    <q-footer
-      v-if="pick.footer"
-      v-model="play.footer"
-      class="bg-grey-8"
-      :reveal="cfg.footerReveal"
-      :elevated="cfg.footerSep === 'elevated'"
-      :bordered="cfg.footerSep === 'bordered'"
-    >
-      <q-toolbar>
-        <q-btn v-if="pick.left" dense flat round :icon="mdiMenu" @click="play.left = !play.left" />
-
-        <q-toolbar-title>Quasar</q-toolbar-title>
-
-        <q-btn v-if="pick.right" dense flat round :icon="mdiMenu" @click="play.right = !play.right" />
-      </q-toolbar>
-    </q-footer>
   </q-layout>
 </template>
 
 <script>
-
+import { mapGetters, mapMutations } from 'vuex'
 import {
   mdiMenu, mdiViewDashboard, mdiCog, mdiPlayCircleOutline
 } from '@quasar/extras/mdi-v5'
+
 function getMeta (title, desc) {
   return {
     title: {
@@ -402,7 +309,6 @@ function getMeta (title, desc) {
 
 export default {
   name: 'Settings',
-
   created () {
     this.mdiMenu = mdiMenu
     this.mdiViewDashboard = mdiViewDashboard
@@ -418,6 +324,162 @@ export default {
       { label: 'Elevated', value: 'elevated' },
       { label: 'Bordered', value: 'bordered' }
     ]
+
+    this.pick.header = this.layoutHeader
+    this.play.header = this.layoutHeaderVisible
+    this.cfg.headerReveal = this.layoutHeaderReveal
+    if (this.cfg.headerSep === 'elevated') {
+      this.updateLayoutHeaderElevated(true)
+      this.updateLayoutHeaderBordered(false)
+    } else if (this.cfg.headerSep === 'bordered') {
+      this.updateLayoutHeaderElevated(false)
+      this.updateLayoutHeaderBordered(true)
+    }
+    this.pick.navtabs = this.layoutHeaderNacTabs
+    this.pick.left = this.layoutLeftDrawer
+    this.play.left = this.layoutLeftDrawerVisible
+    this.cfg.leftBehavior = this.layoutLeftDrawerBehavior
+    this.cfg.leftOverlay = this.layoutLeftDrawerOverlay
+    if (this.cfg.leftSep === 'elevated') {
+      this.updateLayoutLeftDrawerElevated(true)
+      this.updateLayoutLeftDrawerBordered(false)
+    } else if (this.cfg.leftSep === 'bordered') {
+      this.updateLayoutLeftDrawerElevated(false)
+      this.updateLayoutLeftDrawerBordered(true)
+    }
+    this.pick.right = this.layoutRightDrawer
+    this.play.right = this.layoutRightDrawerVisible
+    this.cfg.rightBehavior = this.layoutRightDrawerBehavior
+    this.cfg.rightOverlay = this.layoutRightDrawerOverlay
+    if (this.cfg.rightSep === 'elevated') {
+      this.updateLayoutRightDrawerElevated(true)
+      this.updateLayoutRightDrawerBordered(false)
+    } else if (this.cfg.rightSep === 'bordered') {
+      this.updateLayoutRightDrawerElevated(false)
+      this.updateLayoutRightDrawerBordered(true)
+    }
+    this.pick.footer = this.layoutFooter
+    this.play.footer = this.layoutFooterVisible
+    this.cfg.footerReveal = this.layoutFooterReveal
+    this.cfg.footerReveal = this.layoutFooterReveal
+    if (this.cfg.footerSep === 'elevated') {
+      this.updateLayoutFooterElevated(true)
+      this.updateLayoutFooterBordered(false)
+    } else if (this.cfg.footerSep === 'bordered') {
+      this.updateLayoutFooterElevated(false)
+      this.updateLayoutFooterBordered(true)
+    }
+  },
+  watch: {
+    'pick.header': function (newValue) {
+      this.updateLayoutHeader(newValue)
+    },
+    'play.header': function (newValue) {
+      this.updateLayoutHeaderVisible(newValue)
+    },
+    'cfg.headerReveal': function (newValue) {
+      this.updateLayoutHeaderReveal(newValue)
+    },
+    'cfg.headerSep': function (newValue) {
+      if (newValue === 'elevated') {
+        this.updateLayoutHeaderElevated(true)
+        this.updateLayoutHeaderBordered(false)
+      } else if (newValue === 'bordered') {
+        this.updateLayoutHeaderElevated(false)
+        this.updateLayoutHeaderBordered(true)
+      }
+    },
+    'pick.navtabs': function (newValue) {
+      this.updateLayoutHeaderNacTabs(newValue)
+    },
+    'pick.left': function (newValue) {
+      this.updateLayoutLeftDrawer(newValue)
+    },
+    'play.left': function (newValue) {
+      this.updateLayoutLeftDrawerVisible(newValue)
+    },
+    'cfg.leftBehavior': function (newValue) {
+      this.updateLayoutLeftDrawerBehavior(newValue)
+    },
+    'cfg.leftOverlay': function (newValue) {
+      this.updateLayoutLeftDrawerOverlay(newValue)
+    },
+    'cfg.leftSep': function (newValue) {
+      if (newValue === 'elevated') {
+        this.updateLayoutLeftDrawerElevated(true)
+        this.updateLayoutLeftDrawerBordered(false)
+      } else if (newValue === 'bordered') {
+        this.updateLayoutLeftDrawerElevated(false)
+        this.updateLayoutLeftDrawerBordered(true)
+      }
+    },
+    'pick.right': function (newValue) {
+      this.updateLayoutRightDrawer(newValue)
+    },
+    'play.right': function (newValue) {
+      this.updateLayoutRightDrawerVisible(newValue)
+    },
+    'cfg.rightBehavior': function (newValue) {
+      this.updateLayoutRightDrawerBehavior(newValue)
+    },
+    'cfg.rightOverlay': function (newValue) {
+      this.updateLayoutRightDrawerOverlay(newValue)
+    },
+    'cfg.rightSep': function (newValue) {
+      if (newValue === 'elevated') {
+        this.updateLayoutRightDrawerElevated(true)
+        this.updateLayoutRightDrawerBordered(false)
+      } else if (newValue === 'bordered') {
+        this.updateLayoutRightDrawerElevated(false)
+        this.updateLayoutRightDrawerBordered(true)
+      }
+    },
+    'pick.footer': function (newValue) {
+      this.updateLayoutFooter(newValue)
+    },
+    'play.footer': function (newValue) {
+      this.updateLayoutFooterVisible(newValue)
+    },
+    'cfg.footerReveal': function (newValue) {
+      this.updateLayoutFooterReveal(newValue)
+    },
+    'cfg.footerSep': function (newValue) {
+      if (newValue === 'elevated') {
+        this.updateLayoutFooterElevated(true)
+        this.updateLayoutFooterBordered(false)
+      } else if (newValue === 'bordered') {
+        this.updateLayoutFooterElevated(false)
+        this.updateLayoutFooterBordered(true)
+      }
+    }
+  },
+  methods: {
+    ...mapMutations('AppLayout', [
+      'updateLayoutView',
+      'updateLayoutHeader',
+      'updateLayoutHeaderVisible',
+      'updateLayoutHeaderReveal',
+      'updateLayoutHeaderElevated',
+      'updateLayoutHeaderBordered',
+      'updateLayoutHeaderNacTabs',
+      'updateLayoutLeftDrawer',
+      'updateLayoutLeftDrawerVisible',
+      'updateLayoutLeftDrawerBehavior',
+      'updateLayoutLeftDrawerOverlay',
+      'updateLayoutLeftDrawerElevated',
+      'updateLayoutLeftDrawerBordered',
+      'updateLayoutRightDrawer',
+      'updateLayoutRightDrawerVisible',
+      'updateLayoutRightDrawerBehavior',
+      'updateLayoutRightDrawerOverlay',
+      'updateLayoutRightDrawerElevated',
+      'updateLayoutRightDrawerBordered',
+      'updateLayoutFooter',
+      'updateLayoutFooterVisible',
+      'updateLayoutFooterReveal',
+      'updateLayoutFooterElevated',
+      'updateLayoutFooterBordered'
+    ])
   },
   meta: {
     title: 'Layout Builder',
@@ -468,6 +530,32 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('AppLayout', [
+      'layoutView',
+      'layoutHeader',
+      'layoutHeaderVisible',
+      'layoutHeaderReveal',
+      'layoutHeaderElevated',
+      'layoutHeaderBordered',
+      'layoutHeaderNacTabs',
+      'layoutLeftDrawer',
+      'layoutLeftDrawerVisible',
+      'layoutLeftDrawerBehavior',
+      'layoutLeftDrawerOverlay',
+      'layoutLeftDrawerElevated',
+      'layoutLeftDrawerBordered',
+      'layoutRightDrawer',
+      'layoutRightDrawerVisible',
+      'layoutRightDrawerBehavior',
+      'layoutRightDrawerOverlay',
+      'layoutRightDrawerElevated',
+      'layoutRightDrawerBordered',
+      'layoutFooter',
+      'layoutFooterVisible',
+      'layoutFooterReveal',
+      'layoutFooterElevated',
+      'layoutFooterBordered'
+    ]),
     isContracted () {
       return this.$q.screen.lt.sm === true || (
         this.$q.screen.md === true &&
@@ -494,7 +582,9 @@ export default {
         top = `${this.topL}${this.topC}${this.topR}`,
         middle = `${this.middleL}p${this.middleR}`,
         bottom = `${this.bottomL}${this.bottomC}${this.bottomR}`
-      return `${top} ${middle} ${bottom}`
+      const newView = `${top} ${middle} ${bottom}`
+      this.updateLayoutView(newView)
+      return newView
     },
     layoutExport () {
       let code = `<${'template'}>
