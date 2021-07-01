@@ -14,6 +14,9 @@
     behavior="dialog"
     @filter="filterFn"
     :disable="disable"
+    emit-value
+    map-options
+    clearable
   >
     <template v-slot:no-option>
       <q-item>

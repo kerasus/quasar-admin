@@ -53,18 +53,27 @@ const EntityMixin = {
       this.change(this.inputData)
     },
     getValidChainedObject (object, keys) {
-      if (keys.length === 1) {
-        if (typeof object[keys[0]] !== 'undefined' && object[keys[0]] !== null) {
-          return object[keys[0]]
+      if (!Array.isArray(keys) && typeof keys !== 'string') {
+        console.warn('keys must be array or string')
+        return false
+      }
+      let keysArray = keys
+      if (typeof keys === 'string') {
+        keysArray = keys.split('.')
+      }
+
+      if (keysArray.length === 1) {
+        if (typeof object[keysArray[0]] !== 'undefined' && object[keysArray[0]] !== null) {
+          return object[keysArray[0]]
         }
         return false
       }
 
-      if (typeof object[keys[0]] !== 'undefined' && object[keys[0]] !== null) {
-        return this.getValidChainedObject(object[keys[0]], keys.splice(1))
+      if (typeof object[keysArray[0]] !== 'undefined' && object[keysArray[0]] !== null) {
+        return this.getValidChainedObject(object[keysArray[0]], keysArray.splice(1))
       }
 
-      return (typeof object[keys[0]] !== 'undefined' && object[keys[0]] !== null)
+      return (typeof object[keysArray[0]] !== 'undefined' && object[keysArray[0]] !== null)
     }
   }
 }
