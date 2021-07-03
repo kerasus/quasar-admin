@@ -17,12 +17,23 @@ const routes = [
         children: [
           { name: 'Admin.Settings', path: 'settings', component: () => import('pages/Admin/Settings') },
           {
-            path: '/users',
+            path: 'users',
             component: () => import('pages/Admin/index'),
             children: [
               { name: 'Admin.User.Index', path: '', component: () => import('pages/Admin/User/Index') },
+              { name: 'Admin.User.Create', path: 'create', component: () => import('pages/Admin/User/Create') },
               { name: 'Admin.User.Show', path: ':id', component: () => import('pages/Admin/User/Show') },
               { name: 'Admin.User.Edit', path: ':id/edit', component: () => import('pages/Admin/User/Edit') }
+            ]
+          },
+          {
+            path: 'products',
+            component: () => import('pages/Admin/index'),
+            children: [
+              { name: 'Admin.Product.Index', path: '', component: () => import('pages/Admin/Product/Index') },
+              { name: 'Admin.Product.Create', path: 'create', component: () => import('pages/Admin/Product/Create') },
+              { name: 'Admin.Product.Show', path: ':id', component: () => import('pages/Admin/Product/Show') },
+              { name: 'Admin.Product.Edit', path: ':id/edit', component: () => import('pages/Admin/Product/Edit') }
             ]
           }
         ]

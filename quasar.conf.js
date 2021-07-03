@@ -219,7 +219,8 @@ function setProxy (proxy, key, target) {
 }
 
 setProxy(config.devServer.proxy, '/reqres/api', 'https://reqres.in/api')
-setProxy(config.devServer.proxy, '/alaa/api/v2', 'https://alaatv.com/api/v2')
+// setProxy(config.devServer.proxy, '/alaa/api/v2', 'https://alaatv.com/api/v2')
+setProxy(config.devServer.proxy, '/alaa/api/v2', 'http://alaatv.test/api/v2')
 
 module.exports = function (ctx) {
   // https://v2.quasar.dev/quasar-cli/developing-ssr/configuring-ssr

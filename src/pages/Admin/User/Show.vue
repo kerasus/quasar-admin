@@ -6,6 +6,7 @@
     :entity-id-key="entityIdKey"
     :entity-param-key="entityParamKey"
     :edit-route-name="editRouteName"
+    :index-route-name="indexRouteName"
   />
 </template>
 
@@ -21,6 +22,7 @@ export default {
       entityIdKey: 'id',
       entityParamKey: 'id',
       editRouteName: 'Admin.User.Edit',
+      indexRouteName: 'Admin.User.Index',
       inputs: [
         { type: 'avatar', name: 'avatar', responseKey: 'data.avatar', value: null, size: '150px', col: 'col-md-12' },
         { type: 'input', name: 'id', responseKey: 'data.id', value: 'null', label: 'شناسه', col: 'col-md-3' },

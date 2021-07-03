@@ -2,7 +2,7 @@
   <div class="row">
     <div v-for="(input, inputIndex) in inputData" :key="inputIndex" class="q-pa-md" :class="(input.col) ? input.col : 'col'">
       <form-builder-input v-if="input.type === 'input'" @input="change($event, inputIndex)" v-model="input.value" :label="input.label" :disable="disable || input.disable" />
-      <form-builder-select v-if="input.type === 'select'" @input="change($event)" v-model="input.value" :options="input.options" :label="input.label" :disable="disable || input.disable" />
+      <form-builder-select v-if="input.type === 'select'" @input="change($event)" v-model="input.value" :options="input.options" :label="input.label" :option-value="input.optionValue" :option-label="input.optionLabel" :disable="disable || input.disable" />
       <form-builder-file v-if="input.type === 'file'" @input="change($event)" v-model="input.value" :label="input.label" :disable="disable || input.disable" />
       <form-builder-option-group v-if="input.type === 'optionGroupRadio'" @input="change($event)" v-model="input.value" :options="input.options" :type="'radio'" :disable="disable || input.disable" />
       <form-builder-option-group v-if="input.type === 'optionGroupCheckbox'" @input="change($event)" v-model="input.value" :options="input.options" :type="'checkbox'" :disable="disable || input.disable" />

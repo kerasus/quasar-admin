@@ -4,17 +4,12 @@
       {{ title }}
     </template>
     <template v-slot:toolbar>
-      <q-btn flat round icon="cached" @click="getData()">
-        <q-tooltip>
-          بارگذاری مجدد
-        </q-tooltip>
-      </q-btn>
-      <q-btn flat round icon="check" @click="editEntity()">
+      <q-btn flat round icon="check" @click="createEntity()">
         <q-tooltip>
           ذخیره
         </q-tooltip>
       </q-btn>
-      <q-btn flat round icon="close" @click="goToShowView()">
+      <q-btn flat round icon="close" @click="goToIndexView()">
         <q-tooltip>
           لغو
         </q-tooltip>
@@ -45,7 +40,7 @@ import FormBuilder from 'components/FormBuiler/FormBuilder'
 import axios from 'axios'
 
 export default {
-  name: 'EntityEdit',
+  name: 'EntityCreate',
   props: {
     value: {
       default: () => [],
@@ -59,15 +54,19 @@ export default {
       default: '',
       type: String
     },
-    entityIdKey: {
-      default: 'id',
-      type: String
-    },
-    entityParamKey: {
+    entityIdKeyInResponse: {
       default: 'id',
       type: String
     },
     showRouteName: {
+      default: '',
+      type: String
+    },
+    showRouteParamKey: {
+      default: '',
+      type: String
+    },
+    indexRouteName: {
       default: '',
       type: String
     },
@@ -89,17 +88,17 @@ export default {
       loading: false
     }
   },
-  created () {
-    this.getData()
-  },
   methods: {
-    editEntity () {
+    createEntity () {
+      this.loading = true
       const formData = this.getFormData()
-      axios.put(this.api, formData)
-        .then(() => {
-          this.goToShowView()
+      axios.post(this.api, formData)
+        .then((response) => {
+          this.loading = false
+          this.$router.push({ name: this.showRouteName, params: { [this.showRouteParamKey]: response.data[this.entityIdKeyInResponse] } })
         })
         .catch(() => {
+          this.loading = false
           this.getData()
         })
     }

@@ -2,14 +2,12 @@
 
   <q-toolbar>
     <q-btn v-if="layoutLeftDrawer" dense flat round :icon="'menu'" @click="updateLayoutLeftDrawerVisible(!layoutLeftDrawerVisible)" />
-
     <q-toolbar-title>
       <q-avatar>
         <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
       </q-avatar>
       Layout Builder
     </q-toolbar-title>
-
     <q-btn v-if="layoutRightDrawer" dense flat round :icon="'menu'" @click="updateLayoutRightDrawerVisible(!layoutRightDrawerVisible)" />
   </q-toolbar>
 
