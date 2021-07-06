@@ -11,7 +11,7 @@
     <q-btn v-if="layoutRightDrawer" dense flat round :icon="'menu'" @click="updateLayoutRightDrawerVisible(!layoutRightDrawerVisible)" />
   </q-toolbar>
 
-  <q-tabs v-if="layoutHeaderNacTabs" v-model="layoutHeaderNacTabsModel" align="left">
+  <q-tabs v-if="layoutHeaderNavTabs" v-model="layoutHeaderNavTabsModel" align="left">
     <q-tab name="tab1" label="Tab One" />
     <q-tab name="tab2" label="Tab Two" />
     <q-tab name="tab3" label="Tab Three" />
@@ -31,7 +31,7 @@ export default {
       'layoutHeaderReveal',
       'layoutHeaderElevated',
       'layoutHeaderBordered',
-      'layoutHeaderNacTabs',
+      'layoutHeaderNavTabs',
       'layoutLeftDrawer',
       'layoutLeftDrawerVisible',
       'layoutLeftDrawerBehavior',
@@ -50,7 +50,7 @@ export default {
     ]),
     ...mapState('AppLayout', [
       'layoutHeader',
-      'layoutHeaderNacTabsModel',
+      'layoutHeaderNavTabsModel',
       'layoutFooter'
     ]),
     title () {

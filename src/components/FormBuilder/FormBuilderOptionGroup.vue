@@ -21,29 +21,9 @@ export default {
     value: {
       default: ''
     },
-    color: {
-      default: 'primary',
-      type: String
-    },
-    type: {
-      default: 'radio', // checkbox-toggle
-      type: String
-    },
     options: {
       default: () => [], // { label: 'Option 1', value: 'op1' }
       type: Array
-    },
-    inline: {
-      default: true,
-      type: Boolean
-    },
-    dense: {
-      default: true,
-      type: Boolean
-    },
-    disable: {
-      default: false,
-      type: Boolean
     }
   },
   methods: {

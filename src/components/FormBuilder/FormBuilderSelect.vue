@@ -36,44 +36,16 @@ export default {
   name: 'FormBuilderSelect',
   props: {
     value: {
-      default: '',
-      type: String
+      default: () => [],
+      type: Array
     },
     options: {
       default: () => [],
       type: Array
     },
-    optionValue: {
-      default: 'value',
-      type: String
-    },
-    optionLabel: {
-      default: 'label',
-      type: String
-    },
     optionDisable: {
       default: 'disable',
       type: String
-    },
-    label: {
-      default: '',
-      type: String
-    },
-    multiple: {
-      default: false,
-      type: Boolean
-    },
-    useChips: {
-      default: false,
-      type: Boolean
-    },
-    createNewValue: {
-      default: false,
-      type: Boolean
-    },
-    disable: {
-      default: false,
-      type: Boolean
     }
   },
   mixins: [inputMixin],

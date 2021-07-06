@@ -3,8 +3,8 @@
     <div v-for="(input, inputIndex) in inputData" :key="inputIndex" class="q-pa-md" :class="(input.col) ? input.col : 'col'">
       <component
         :is="getComponent(input)"
-        @input="change($event, inputIndex)"
         v-model:value="input.value"
+        @input="change($event, inputIndex)"
         :label="input.label"
         :disable="disable || input.disable"
         :options="input.options"
@@ -63,6 +63,7 @@ export default {
     FormBuilderOptionGroup: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderOptionGroup')),
     FormBuilderSlider: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderSlider')),
     FormBuilderRangeSlider: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderRangeSlider')),
+    FormBuilderSpace: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderSpace')),
     FormBuilderDateTime: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderDateTime'))
   },
   mixins: [inputMixin],

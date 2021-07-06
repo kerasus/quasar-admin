@@ -8,15 +8,15 @@
       :elevated="layoutHeaderElevated"
       :bordered="layoutHeaderBordered"
     >
-      <Header v-model="leftDrawerOpen" />
+      <Header v-model:value="leftDrawerOpen" />
     </q-header>
 
     <q-page-container>
-      <vue-page-transition name="zoom">
+<!--      <vue-page-transition name="zoom">-->
         <!--      <transition appear enter-active-class="animated slideInRight" leave-active-class="animated slideOutLeft" mode="out-in">-->
         <router-view :key="$route.name" />
         <!--      </transition>-->
-      </vue-page-transition>
+<!--      </vue-page-transition>-->
     </q-page-container>
 
     <q-drawer

@@ -335,7 +335,7 @@ export default {
       this.updateLayoutHeaderElevated(false)
       this.updateLayoutHeaderBordered(true)
     }
-    this.pick.navtabs = this.layoutHeaderNacTabs
+    this.pick.navtabs = this.layoutHeaderNavTabs
     this.pick.left = this.layoutLeftDrawer
     this.play.left = this.layoutLeftDrawerVisible
     this.cfg.leftBehavior = this.layoutLeftDrawerBehavior
@@ -390,7 +390,7 @@ export default {
       }
     },
     'pick.navtabs': function (newValue) {
-      this.updateLayoutHeaderNacTabs(newValue)
+      this.updateLayoutHeaderNavTabs(newValue)
     },
     'pick.left': function (newValue) {
       this.updateLayoutLeftDrawer(newValue)
@@ -461,7 +461,7 @@ export default {
       'updateLayoutHeaderReveal',
       'updateLayoutHeaderElevated',
       'updateLayoutHeaderBordered',
-      'updateLayoutHeaderNacTabs',
+      'updateLayoutHeaderNavTabs',
       'updateLayoutLeftDrawer',
       'updateLayoutLeftDrawerVisible',
       'updateLayoutLeftDrawerBehavior',
@@ -537,7 +537,7 @@ export default {
       'layoutHeaderReveal',
       'layoutHeaderElevated',
       'layoutHeaderBordered',
-      'layoutHeaderNacTabs',
+      'layoutHeaderNavTabs',
       'layoutLeftDrawer',
       'layoutLeftDrawerVisible',
       'layoutLeftDrawerBehavior',

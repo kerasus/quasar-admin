@@ -92,14 +92,6 @@ export default {
     value: {
       default: '',
       type: [String, Number]
-    },
-    label: {
-      default: '',
-      type: String
-    },
-    disable: {
-      default: false,
-      type: Boolean
     }
   },
   mixins: [inputMixin]

@@ -35,22 +35,6 @@ export default {
     value: {
       default: '',
       type: [String, Array]
-    },
-    time: {
-      default: false,
-      type: Boolean
-    },
-    range: {
-      default: false,
-      type: Boolean
-    },
-    multiple: {
-      default: false,
-      type: Boolean
-    },
-    disable: {
-      default: false,
-      type: Boolean
     }
   },
   computed: {

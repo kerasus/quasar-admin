@@ -20,22 +20,6 @@ export default {
   props: {
     value: {
       default: ''
-    },
-    min: {
-      default: 0,
-      type: Number
-    },
-    max: {
-      default: 100,
-      type: Number
-    },
-    label: {
-      default: '',
-      type: String
-    },
-    disable: {
-      default: false,
-      type: Boolean
     }
   },
   methods: {

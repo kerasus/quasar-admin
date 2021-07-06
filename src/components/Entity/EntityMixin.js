@@ -48,7 +48,9 @@ const EntityMixin = {
     },
     loadInputData (responseData) {
       this.inputData.forEach(input => {
-        input.value = this.getValidChainedObject(responseData, input.responseKey.split('.'))
+        if (typeof input.responseKey !== 'undefined' && input.responseKey !== null) {
+          input.value = this.getValidChainedObject(responseData, input.responseKey.split('.'))
+        }
       })
       this.change(this.inputData)
     },

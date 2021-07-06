@@ -23,22 +23,6 @@ export default {
         return { min: 9, max: 35 }
       },
       type: Object
-    },
-    min: {
-      default: 0,
-      type: Number
-    },
-    max: {
-      default: 100,
-      type: Number
-    },
-    label: {
-      default: '',
-      type: String
-    },
-    disable: {
-      default: false,
-      type: Boolean
     }
   },
   methods: {

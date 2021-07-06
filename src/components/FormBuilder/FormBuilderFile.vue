@@ -17,14 +17,6 @@ export default {
   props: {
     value: {
       default: ''
-    },
-    label: {
-      default: '',
-      type: String
-    },
-    disable: {
-      default: false,
-      type: Boolean
     }
   },
   data () {
