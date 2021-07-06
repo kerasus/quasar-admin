@@ -85,6 +85,8 @@ export default {
   },
   methods: {
     filterFn (val, update) {
+      const isObjectList = (this.options.length > 0 && typeof this.options[0] === 'object')
+
       if (val === '') {
         update(() => {
           this.filteredOptions = this.options
@@ -94,7 +96,10 @@ export default {
 
       update(() => {
         const needle = val.toLowerCase()
-        this.filteredOptions = this.options.filter(v => v.toLowerCase().indexOf(needle) > -1)
+        this.filteredOptions = this.options.filter(v => {
+          const itemLabel = (isObjectList) ? v[this.optionLabel] : v
+          return itemLabel.toString().toLowerCase().indexOf(needle) > -1
+        })
       })
     },
     createValue (val, done) {
