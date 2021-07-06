@@ -40,8 +40,8 @@
 <script>
 import Portlet from 'components/Portlet'
 import EntityMixin from 'components/Entity/EntityMixin'
-import inputMixin from 'components/FormBuiler/inputMixin'
-import FormBuilder from 'components/FormBuiler/FormBuilder'
+import inputMixin from 'components/FormBuilder/inputMixin'
+import FormBuilder from 'components/FormBuilder/FormBuilder'
 import axios from 'axios'
 
 export default {

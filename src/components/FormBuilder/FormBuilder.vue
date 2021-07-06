@@ -1,0 +1,117 @@
+<template>
+  <div class="row">
+    <div v-for="(input, inputIndex) in inputData" :key="inputIndex" class="q-pa-md" :class="(input.col) ? input.col : 'col'">
+      <component
+        :is="getComponent(input)"
+        @input="change($event, inputIndex)"
+        v-model:value="input.value"
+        :label="input.label"
+        :disable="disable || input.disable"
+        :options="input.options"
+        :option-value="input.optionValue"
+        :multiple="isMultiple(input)"
+        :use-chips="input.useChips"
+        :create-new-value="input.createNewValue"
+        :option-label="input.optionLabel"
+        :type="getOptionGroupType(input)"
+        :min="input.min"
+        :max="input.max"
+        :range="isRange(input)"
+        :time="isTime(input)"
+        :src="input.value"
+        :size="input.size"
+        :font-size="input.fontSize"
+        :color="input.color"
+        :text-color="input.textColor"
+        :icon="input.icon"
+      />
+    </div>
+  </div>
+</template>
+
+<script>
+import { defineAsyncComponent } from 'vue'
+import inputMixin from 'components/FormBuilder/inputMixin'
+
+export default {
+  name: 'FormBuilder',
+  props: {
+    value: {
+      default: () => [],
+      type: Array
+    },
+    disable: {
+      default: false,
+      type: Boolean
+    }
+  },
+  data () {
+    return {
+      currentInput: null,
+      optionGroupType: null,
+      dateTime_Range: null,
+      dateTime_Multiple: null,
+      dateTime_Time: null
+    }
+  },
+  components: {
+    FormBuilderFile: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderFile')),
+    FormBuilderInput: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderInput')),
+    FormBuilderInputEditor: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderInputEditor')),
+    FormBuilderAvatar: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderAvatar')),
+    FormBuilderSelect: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderSelect')),
+    FormBuilderOptionGroup: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderOptionGroup')),
+    FormBuilderSlider: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderSlider')),
+    FormBuilderRangeSlider: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderRangeSlider')),
+    FormBuilderDateTime: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderDateTime'))
+  },
+  mixins: [inputMixin],
+  methods: {
+    getComponent (input) {
+      if (
+        input.type === 'optionGroupRadio' ||
+        input.type === 'optionGroupCheckbox' ||
+        input.type === 'optionGroupToggle'
+      ) {
+        return 'form-builder-option-group'
+      }
+      if (
+        input.type === 'dateMultipleRange' ||
+        input.type === 'dateRange' ||
+        input.type === 'dateTime' ||
+        input.type === 'time'
+      ) {
+        return 'form-builder-date-time'
+      }
+      return 'form-builder-' + input.type
+    },
+    getOptionGroupType (input) {
+      if (input.type === 'optionGroupRadio') {
+        return 'radio'
+      } else if (input.type === 'optionGroupCheckbox') {
+        return 'checkbox'
+      } else if (input.type === 'optionGroupToggle') {
+        return 'toggle'
+      }
+
+      return null
+    },
+    isMultiple (input) {
+      return input.multiple || input.type === 'dateMultipleRange'
+    },
+    isRange (input) {
+      return input.type === 'dateMultipleRange' || input.type === 'dateRange'
+    },
+    isTime (input) {
+      return input.type === 'time'
+    },
+    change () {
+      this.$emit('input', this.inputData)
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

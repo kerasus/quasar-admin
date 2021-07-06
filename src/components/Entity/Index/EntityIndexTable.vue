@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import inputMixin from 'components/FormBuiler/inputMixin'
+import inputMixin from 'components/FormBuilder/inputMixin'
 import { exportFile } from 'quasar'
 
 function wrapCsvValue (val, formatFn) {

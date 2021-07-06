@@ -57,6 +57,11 @@ const EntityMixin = {
         console.warn('keys must be array or string')
         return false
       }
+
+      if (keys === '') {
+        return object
+      }
+
       let keysArray = keys
       if (typeof keys === 'string') {
         keysArray = keys.split('.')

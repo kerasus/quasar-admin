@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import inputMixin from 'components/FormBuiler/inputMixin'
+import inputMixin from 'components/FormBuilder/inputMixin'
 export default {
   name: 'FormBuilderInput',
   props: {
