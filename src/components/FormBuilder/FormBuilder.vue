@@ -5,14 +5,15 @@
         :is="getComponent(input)"
         v-model:value="input.value"
         @input="change($event, inputIndex)"
+        @change="change($event, inputIndex)"
         :label="input.label"
         :disable="disable || input.disable"
         :options="input.options"
+        :option-label="input.optionLabel"
         :option-value="input.optionValue"
         :multiple="isMultiple(input)"
         :use-chips="input.useChips"
         :create-new-value="input.createNewValue"
-        :option-label="input.optionLabel"
         :type="getOptionGroupType(input)"
         :min="input.min"
         :max="input.max"
@@ -106,7 +107,14 @@ export default {
     isTime (input) {
       return input.type === 'time'
     },
-    change () {
+    change (event, inputIndex) {
+      if (typeof event.target !== 'undefined' && typeof event.target.files !== 'undefined' && event.target.files[0]) {
+        this.inputData[inputIndex].value = event.target.files[0]
+      } else {
+        this.inputData[inputIndex].value = event
+      }
+
+      // this.inputData.value = inputValue
       this.$emit('input', this.inputData)
     }
   }

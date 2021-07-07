@@ -1,5 +1,5 @@
 <template>
-  <q-file @input="change($event)" v-model="inputData" :label="label" :disable="disable" :for="uid" clearable @clear="onClearInputFile" />
+  <q-file @change="change($event)" v-model="inputData" :label="label" :disable="disable" :for="uid" clearable @clear="onClearInputFile" />
   <label :for="uid">
     <q-img
       v-if="canLoadImage"

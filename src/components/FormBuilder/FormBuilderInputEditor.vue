@@ -1,6 +1,8 @@
 <template>
+  <p v-text="label"/>
   <q-editor
     v-model="inputData"
+    @update="change($event)"
     :dense="$q.screen.lt.md"
     :toolbar="[
     [
@@ -86,6 +88,7 @@
 
 <script>
 import inputMixin from 'components/FormBuilder/inputMixin'
+
 export default {
   name: 'FormBuilderInputEditor',
   props: {

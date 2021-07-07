@@ -16,7 +16,7 @@
     emit-value
     map-options
     clearable
-    @input="change($event)"
+    @update:model-value="change($event)"
     @new-value="createValue"
     @filter="filterFn"
   >

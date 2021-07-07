@@ -95,7 +95,7 @@ export default {
   methods: {
     editEntity () {
       const formData = this.getFormData()
-      axios.put(this.api, formData)
+      axios.put(this.api, formData, { headers: this.getHeaders()})
         .then(() => {
           this.goToShowView()
         })

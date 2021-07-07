@@ -16,15 +16,38 @@ const EntityMixin = {
     goToShowView () {
       this.$router.push({ name: this.showRouteName, params: { [this.entityParamKey]: this.getEntityId() } })
     },
+    formHasFileInput () {
+      const target = this.inputData.find( item => item.type === 'file')
+      return !!target;
+    },
+    getHeaders () {
+      if (this.formHasFileInput()) {
+        return { "Content-Type": "multipart/form-data" }
+      }
+    },
+    isFile (file) {
+      return file instanceof File
+    },
     getFormData () {
-      const data = {}
+      const formHasFileInput = this.formHasFileInput()
+      const formData = formHasFileInput ? new FormData() : {}
       this.inputData.forEach(item => {
-        if (item.disable === false) {
-          data[item.name] = item.value
+        if (item.disable || typeof item.value === 'undefined' || item.value === null) {
+          return
+        }
+
+        if (item.type === 'file' && !this.isFile(item.value)) {
+          return
+        }
+
+        if (formHasFileInput) {
+          formData.append(item.name, item.value);
+        } else {
+          formData[item.name] = item.value
         }
       })
 
-      return data
+      return formData
     },
     toggleFullscreen () {
       const target = this.$refs.portlet
@@ -43,6 +66,9 @@ const EntityMixin = {
       axios.get(this.api)
         .then(response => {
           this.loadInputData(response.data)
+          this.loading = false
+        })
+        .catch( () => {
           this.loading = false
         })
     },
