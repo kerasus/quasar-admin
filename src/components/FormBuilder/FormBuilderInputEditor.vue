@@ -94,7 +94,19 @@ export default {
   props: {
     value: {
       default: '',
-      type: [String, Number]
+      type: [String, Number, Boolean]
+    }
+  },
+  watch: {
+    value (newValue) {
+      if (newValue === false) {
+        this.inputData = ''
+      }
+    }
+  },
+  created () {
+    if (this.inputData === false) {
+      this.inputData = ''
     }
   },
   mixins: [inputMixin]

@@ -19,7 +19,8 @@ export default {
   name: 'FormBuilderOptionGroup',
   props: {
     value: {
-      default: ''
+      default: '',
+      type: [Object, String, Array, Number, Boolean]
     },
     options: {
       default: () => [], // { label: 'Option 1', value: 'op1' }

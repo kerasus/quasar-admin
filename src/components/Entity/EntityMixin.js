@@ -17,12 +17,12 @@ const EntityMixin = {
       this.$router.push({ name: this.showRouteName, params: { [this.entityParamKey]: this.getEntityId() } })
     },
     formHasFileInput () {
-      const target = this.inputData.find( item => item.type === 'file')
-      return !!target;
+      const target = this.inputData.find(item => item.type === 'file')
+      return !!target
     },
     getHeaders () {
       if (this.formHasFileInput()) {
-        return { "Content-Type": "multipart/form-data" }
+        return { 'Content-Type': 'multipart/form-data' }
       }
     },
     isFile (file) {
@@ -41,7 +41,7 @@ const EntityMixin = {
         }
 
         if (formHasFileInput) {
-          formData.append(item.name, item.value);
+          formData.append(item.name, item.value)
         } else {
           formData[item.name] = item.value
         }
@@ -68,7 +68,7 @@ const EntityMixin = {
           this.loadInputData(response.data)
           this.loading = false
         })
-        .catch( () => {
+        .catch(() => {
           this.loading = false
         })
     },

@@ -1,5 +1,5 @@
 <template>
-  <q-file @change="change($event)" v-model="inputData" :label="label" :disable="disable" :for="uid" clearable @clear="onClearInputFile" />
+  <q-file @change="change($event)" v-model="file" :label="label" :disable="disable" :for="uid" clearable @clear="onClearInputFile" />
   <label :for="uid">
     <q-img
       v-if="canLoadImage"
@@ -16,11 +16,13 @@ export default {
   name: 'FormBuilderFile',
   props: {
     value: {
-      default: ''
+      default: '',
+      type: [String, File]
     }
   },
   data () {
     return {
+      file: null,
       uid: null,
       url: null
     }
@@ -30,10 +32,19 @@ export default {
     this.uid = this.getUid()
   },
   watch: {
+    value (newValue) {
+      this.inputData = newValue
+      if (this.isFile(newValue)) {
+        this.file = newValue
+      }
+    },
     inputData (newValue) {
       if (this.isPhotoUrl(newValue)) {
         this.url = newValue
       }
+    },
+    file (newValue) {
+      this.inputData = newValue
     }
   },
   computed: {

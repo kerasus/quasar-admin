@@ -9,7 +9,7 @@ export default {
   props: {
     value: {
       default: '',
-      type: [String, Number]
+      type: [String, Number, Boolean]
     }
   },
   mixins: [inputMixin]

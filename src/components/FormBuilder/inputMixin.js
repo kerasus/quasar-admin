@@ -1,8 +1,5 @@
 export default {
   props: {
-    value: {
-      default: ''
-    },
     label: {
       default: '',
       type: String
@@ -77,7 +74,7 @@ export default {
     },
     src: {
       default: '',
-      type: String
+      type: [String, Number, Boolean, Array, Boolean]
     }
   },
   watch: {
@@ -85,6 +82,7 @@ export default {
       this.inputData = this.value
     }
   },
+  emits: ['update:value', 'input', 'change'],
   data () {
     return {
       inputData: null
@@ -95,7 +93,7 @@ export default {
   },
   methods: {
     change (val) {
-      this.$emit('input', val)
+      this.$emit('update:value', val)
     }
   }
 }

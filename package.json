@@ -1,8 +1,8 @@
 {
   "name": "quasar-admin-pannel",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "Quasar App",
+  "description": "Alaa admin app",
+  "productName": "Alaa",
   "author": "kerasus <aliesmaeeli20@gmail.com>",
   "private": true,
   "scripts": {

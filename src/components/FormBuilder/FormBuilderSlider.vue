@@ -19,7 +19,8 @@ export default {
   name: 'FormBuilderSlider',
   props: {
     value: {
-      default: ''
+      default: 0,
+      type: Number
     }
   },
   methods: {

@@ -13,7 +13,8 @@ export default {
   name: 'FormBuilderAvatar',
   props: {
     value: {
-      default: ''
+      default: '',
+      type: String
     }
   },
   mixins: [inputMixin]
