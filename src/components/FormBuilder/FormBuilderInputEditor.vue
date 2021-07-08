@@ -2,7 +2,7 @@
   <p v-text="label"/>
   <q-editor
     v-model="inputData"
-    @update="change($event)"
+    @update:model-value="change($event)"
     :dense="$q.screen.lt.md"
     :toolbar="[
     [
