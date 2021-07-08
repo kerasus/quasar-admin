@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-option-group
-      @input="change($event)"
+      @update:model-value="change($event)"
       v-model="inputData"
       :options="options"
       :color="color"
