@@ -1,11 +1,11 @@
 <template>
   <q-select
+    v-model="inputData"
     transition-show="jump-down"
     transition-hide="jump-up"
     :option-value="optionValue"
     :option-label="optionLabel"
     :option-disable="optionDisable"
-    v-model="inputData"
     :options="filteredOptions"
     :label="label"
     :multiple="multiple"
@@ -20,7 +20,7 @@
     @new-value="createValue"
     @filter="filterFn"
   >
-    <template v-slot:no-option>
+    <template #no-option>
       <q-item>
         <q-item-section class="text-grey">
           موردی یافت نشد
@@ -34,6 +34,7 @@
 import inputMixin from 'components/FormBuilder/inputMixin'
 export default {
   name: 'FormBuilderSelect',
+  mixins: [inputMixin],
   props: {
     value: {
       default: () => [],
@@ -48,7 +49,6 @@ export default {
       type: String
     }
   },
-  mixins: [inputMixin],
   data () {
     return {
       model: null,

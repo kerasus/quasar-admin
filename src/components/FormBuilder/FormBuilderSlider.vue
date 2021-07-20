@@ -4,11 +4,11 @@
       {{ label }}: {{ inputData }} ({{ min }} تا {{ max }})
     </q-badge>
     <q-slider
-      @input="change($event)"
       v-model="inputData"
       :min="min"
       :max="max"
       :disable="disable"
+      @input="change($event)"
     />
   </div>
 </template>
@@ -17,6 +17,7 @@
 import inputMixin from 'components/FormBuilder/inputMixin'
 export default {
   name: 'FormBuilderSlider',
+  mixins: [inputMixin],
   props: {
     value: {
       default: 0,
@@ -25,8 +26,7 @@ export default {
   },
   methods: {
 
-  },
-  mixins: [inputMixin]
+  }
 }
 </script>
 

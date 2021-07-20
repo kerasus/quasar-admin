@@ -4,8 +4,6 @@
       <component
         :is="getComponent(input)"
         v-model:value="input.value"
-        @input="change($event, inputIndex)"
-        @change="change($event, inputIndex)"
         :label="input.label"
         :disable="disable || input.disable"
         :options="input.options"
@@ -25,6 +23,8 @@
         :color="input.color"
         :text-color="input.textColor"
         :icon="input.icon"
+        @input="change($event, inputIndex)"
+        @change="change($event, inputIndex)"
       />
     </div>
   </div>
@@ -36,25 +36,6 @@ import inputMixin from 'components/FormBuilder/inputMixin'
 
 export default {
   name: 'FormBuilder',
-  props: {
-    value: {
-      default: () => [],
-      type: Array
-    },
-    disable: {
-      default: false,
-      type: Boolean
-    }
-  },
-  data () {
-    return {
-      currentInput: null,
-      optionGroupType: null,
-      dateTime_Range: null,
-      dateTime_Multiple: null,
-      dateTime_Time: null
-    }
-  },
   components: {
     FormBuilderFile: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderFile')),
     FormBuilderInput: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderInput')),
@@ -68,6 +49,26 @@ export default {
     FormBuilderDateTime: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderDateTime'))
   },
   mixins: [inputMixin],
+  props: {
+    value: {
+      default: () => [],
+      type: Array
+    },
+    disable: {
+      default: false,
+      type: Boolean
+    }
+  },
+  emits: ['input'],
+  data () {
+    return {
+      currentInput: null,
+      optionGroupType: null,
+      dateTime_Range: null,
+      dateTime_Multiple: null,
+      dateTime_Time: null
+    }
+  },
   methods: {
     getComponent (input) {
       if (

@@ -1,7 +1,6 @@
 <template>
   <div>
     <q-option-group
-      @update:model-value="change($event)"
       v-model="inputData"
       :options="options"
       :color="color"
@@ -9,6 +8,7 @@
       :dense="dense"
       :type="type"
       :disable="disable"
+      @update:model-value="change($event)"
     />
   </div>
 </template>
@@ -17,6 +17,7 @@
 import inputMixin from 'components/FormBuilder/inputMixin'
 export default {
   name: 'FormBuilderOptionGroup',
+  mixins: [inputMixin],
   props: {
     value: {
       default: '',
@@ -29,8 +30,7 @@ export default {
   },
   methods: {
 
-  },
-  mixins: [inputMixin]
+  }
 }
 </script>
 

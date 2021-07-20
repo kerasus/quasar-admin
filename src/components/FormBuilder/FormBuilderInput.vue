@@ -1,18 +1,18 @@
 <template>
-  <q-input @input="change($event)" v-model="inputData" :label="label" :disable="disable" />
+  <q-input v-model="inputData" :label="label" :disable="disable" @input="change($event)" />
 </template>
 
 <script>
 import inputMixin from 'components/FormBuilder/inputMixin'
 export default {
   name: 'FormBuilderInput',
+  mixins: [inputMixin],
   props: {
     value: {
       default: '',
       type: [String, Number, Boolean]
     }
-  },
-  mixins: [inputMixin]
+  }
 }
 </script>
 

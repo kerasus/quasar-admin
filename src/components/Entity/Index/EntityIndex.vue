@@ -1,9 +1,9 @@
 <template>
   <portlet>
-    <template v-slot:title>
+    <template #title>
       {{ title }}
     </template>
-    <template v-slot:toolbar>
+    <template #toolbar>
       <q-btn flat round icon="search" @click="search">
         <q-tooltip>
           جستجو
@@ -26,7 +26,7 @@
         </q-tooltip>
       </q-btn>
     </template>
-    <template v-slot:content>
+    <template #content>
       <q-expansion-item v-model="expanded">
         <form-builder v-model:value="inputData" />
         <div class="row">
@@ -38,8 +38,8 @@
               :loading="loading"
               :change-page="changePage"
             >
-              <template v-slot:entity-index-table-cell="{inputData}">
-                <slot name="table-cell" v-bind:inputData="inputData" v-bind:showConfirmRemoveDialog="showConfirmRemoveDialog">
+              <template #entity-index-table-cell="{inputData}">
+                <slot name="table-cell" :inputData="inputData" :showConfirmRemoveDialog="showConfirmRemoveDialog">
                   <q-td :props="inputData.props">
                     {{ inputData.props.value }}
                   </q-td>
@@ -56,8 +56,8 @@
             <span class="q-ml-sm">{{ confirmRemoveMessage }}</span>
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn flat label="انصراف" color="primary" v-close-popup />
-            <q-btn flat label="تایید" color="primary" v-close-popup @click="removeItem" />
+            <q-btn v-close-popup flat label="انصراف" color="primary" />
+            <q-btn v-close-popup flat label="تایید" color="primary" @click="removeItem" />
           </q-card-actions>
         </q-card>
       </q-dialog>
@@ -75,6 +75,8 @@ import EntityIndexTable from 'components/Entity/Index/EntityIndexTable'
 
 export default {
   name: 'EntityIndex',
+  components: { Portlet, EntityIndexTable, FormBuilder },
+  mixins: [inputMixin, EntityMixin],
   props: {
     value: {
       default: () => [],
@@ -111,8 +113,7 @@ export default {
       type: Object
     }
   },
-  mixins: [inputMixin, EntityMixin],
-  components: { Portlet, EntityIndexTable, FormBuilder },
+emits: ['onPageChanged', 'catchError'],
   data () {
     return {
       removeIdKey: 'id',

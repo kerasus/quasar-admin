@@ -1,13 +1,13 @@
 <template>
   <q-file
     v-model="file"
-    @update:model-value="change($event)"
-    @clear="onClearInputFile"
     :label="label"
     :disable="disable"
     :for="uid"
     clearable
-   :model-value="file"
+    :model-value="file"
+    @update:model-value="change($event)"
+   @clear="onClearInputFile"
   />
   <label :for="uid">
     <q-img
@@ -44,6 +44,7 @@ import inputMixin from 'components/FormBuilder/inputMixin'
 
 export default {
   name: 'FormBuilderFile',
+  mixins: [inputMixin],
   props: {
     value: {
       default: '',
@@ -55,30 +56,6 @@ export default {
       file: null,
       uid: null,
       url: null
-    }
-  },
-  mixins: [inputMixin],
-  created () {
-    this.uid = this.getUid()
-  },
-  watch: {
-    value (newValue) {
-      this.inputData = newValue
-      if (this.isFile(newValue)) {
-        this.file = newValue
-      }
-    },
-    inputData (newValue) {
-      if (this.isValidURL(newValue) && this.getSourceExtension(newValue) === 'photo') {
-        this.url = newValue
-      }
-    },
-    file (newValue) {
-      if (newValue === null) {
-        this.inputData = this.url
-      } else {
-        this.inputData = newValue
-      }
     }
   },
   computed: {
@@ -103,6 +80,29 @@ export default {
 
       return extension
     }
+  },
+  watch: {
+    value (newValue) {
+      this.inputData = newValue
+      if (this.isFile(newValue)) {
+        this.file = newValue
+      }
+    },
+    inputData (newValue) {
+      if (this.isValidURL(newValue) && this.getSourceExtension(newValue) === 'photo') {
+        this.url = newValue
+      }
+    },
+    file (newValue) {
+      if (newValue === null) {
+        this.inputData = this.url
+      } else {
+        this.inputData = newValue
+      }
+    }
+  },
+  created () {
+    this.uid = this.getUid()
   },
   methods: {
     onClearInputFile () {

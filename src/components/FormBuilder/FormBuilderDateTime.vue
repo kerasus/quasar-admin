@@ -1,7 +1,7 @@
 <template>
   <div>
-    <q-input filled @input="change($event)" v-model="outputText" dir="ltr" readonly :disable="disable">
-      <template v-if="canShowDate" v-slot:prepend>
+    <q-input v-model="outputText" filled dir="ltr" readonly :disable="disable" @input="change($event)">
+      <template v-if="canShowDate" #prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
             <q-date v-model="inputData" calendar="persian" :mask="mask" :range="range" :multiple="multiple" :disable="disable">
@@ -12,7 +12,7 @@
           </q-popup-proxy>
         </q-icon>
       </template>
-      <template v-if="canShowTime" v-slot:append>
+      <template v-if="canShowTime" #append>
         <q-icon name="access_time" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
             <q-time v-model="inputData" :mask="mask" format24h :disable="disable">
@@ -31,6 +31,7 @@
 import inputMixin from 'components/FormBuilder/inputMixin'
 export default {
   name: 'FormBuilderDateTime',
+  mixins: [inputMixin],
   props: {
     value: {
       default: '',
@@ -76,8 +77,7 @@ export default {
   },
   methods: {
 
-  },
-  mixins: [inputMixin]
+  }
 }
 </script>
 

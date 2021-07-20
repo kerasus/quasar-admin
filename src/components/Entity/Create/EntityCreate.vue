@@ -1,9 +1,9 @@
 <template>
   <portlet ref="portlet">
-    <template v-slot:title>
+    <template #title>
       {{ title }}
     </template>
-    <template v-slot:toolbar>
+    <template #toolbar>
       <q-btn flat round icon="check" @click="createEntity()">
         <q-tooltip>
           ذخیره
@@ -21,7 +21,7 @@
         </q-tooltip>
       </q-btn>
     </template>
-    <template v-slot:content>
+    <template #content>
       <q-expansion-item v-model="expanded">
         <form-builder v-model:value="inputData" :disable="false" />
         <q-inner-loading :showing="loading">
@@ -41,6 +41,8 @@ import axios from 'axios'
 
 export default {
   name: 'EntityCreate',
+  components: { Portlet, FormBuilder },
+  mixins: [inputMixin, EntityMixin],
   props: {
     value: {
       default: () => [],
@@ -80,8 +82,6 @@ export default {
       type: Object
     }
   },
-  mixins: [inputMixin, EntityMixin],
-  components: { Portlet, FormBuilder },
   data () {
     return {
       expanded: true,
