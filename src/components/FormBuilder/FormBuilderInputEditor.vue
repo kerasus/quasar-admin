@@ -1,6 +1,7 @@
 <template>
   <p v-text="label"/>
   <q-editor
+    v-if="!disable"
     v-model="inputData"
     :dense="$q.screen.lt.md"
     :toolbar="[
@@ -82,9 +83,10 @@
     times_new_roman: 'Times New Roman',
     verdana: 'Verdana'
   }"
-
     @update:model-value="change($event)"
   />
+  <!--eslint-disable-next-line-->
+  <div v-else v-html="inputData" />
 </template>
 
 <script>

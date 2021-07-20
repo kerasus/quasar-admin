@@ -43,6 +43,7 @@ export default {
     FormBuilderAvatar: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderAvatar')),
     FormBuilderSelect: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderSelect')),
     FormBuilderOptionGroup: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderOptionGroup')),
+    FormBuilderCheckbox: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderCheckbox')),
     FormBuilderSlider: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderSlider')),
     FormBuilderRangeSlider: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderRangeSlider')),
     FormBuilderSpace: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderSpace')),
@@ -81,6 +82,7 @@ export default {
       if (
         input.type === 'dateMultipleRange' ||
         input.type === 'dateRange' ||
+        input.type === 'date' ||
         input.type === 'dateTime' ||
         input.type === 'time'
       ) {
