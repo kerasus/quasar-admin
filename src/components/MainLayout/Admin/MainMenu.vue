@@ -63,7 +63,7 @@ export default {
         },
         {
           title: 'کوپن ها',
-          icon: 'card_membership',
+          icon: 'local_library',
           routeName: 'Admin.Coupon.Index'
         },
         {
