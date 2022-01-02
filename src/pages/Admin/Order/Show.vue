@@ -7,57 +7,98 @@
     :entity-param-key="entityParamKey"
     :edit-route-name="editRouteName"
     :index-route-name="indexRouteName"
+    :after-load-input-data="afterLoadInputData"
   />
+  <portlet v-if="orderproducts.length > 0" ref="portlet">
+    <template #title>
+      محصولات سفارش
+    </template>
+    <template #toolbar>
+
+    </template>
+    <template #content>
+      <q-card>
+        <q-card-section>
+          <div class="row">
+            <div
+              v-for="orderproduct in orderproducts"
+              :key="orderproduct.id"
+              class="col-md-3"
+            >
+              <q-card>
+                <q-img :src="orderproduct.product.photo">
+                  <div class="absolute-bottom text-h6">
+                    {{ orderproduct.product.title }}
+                  </div>
+                </q-img>
+
+                <q-card-section>
+                  دسته:
+                  {{ orderproduct.product.category }}
+                  <br>
+                  قیمت:
+                  {{ orderproduct.price.final }}
+                </q-card-section>
+              </q-card>
+            </div>
+          </div>
+        </q-card-section>
+      </q-card>
+
+    </template>
+  </portlet>
+
 </template>
 
 <script>
-import { EntityShow } from 'quasar-crud'
+import { EntityShow, Portlet } from 'quasar-crud'
 
 export default {
   name: 'Show',
-  components: { EntityShow },
+  components: { EntityShow, Portlet },
+  computed: {
+    // orderproducts () {
+    //   const orderproductsIndex = this.inputs.findIndex(item => item.name === 'orderproducts')
+    //   return this.inputs[orderproductsIndex].value
+    // }
+  },
   data () {
     return {
       expanded: true,
-      api: '/alaa/api/v2/admin/product',
+      api: '/alaa/api/v2/admin/order',
       entityIdKey: 'id',
       entityParamKey: 'id',
-      editRouteName: 'Admin.Product.Edit',
-      indexRouteName: 'Admin.Product.Index',
+      editRouteName: 'Admin.Order.Edit',
+      indexRouteName: 'Admin.Order.Index',
       inputs: [
-        { type: 'avatar', name: 'photo', responseKey: 'data.photo', value: null, size: '250px', col: 'col-md-12' },
-        { type: 'input', name: 'id', responseKey: 'data.id', value: 'null', label: 'شناسه', col: 'col-md-3' },
-        { type: 'input', name: 'id', responseKey: 'data.id', value: 'null', label: 'شناسه محصول پرنت', col: 'col-md-3' },
-        { type: 'input', name: 'title', responseKey: 'data.title', value: 'null', label: 'نام کالا', col: 'col-md-3' },
-        { type: 'input', name: 'redirect_url', responseKey: 'data.redirect_url', value: 'null', label: 'آدرس ریدایرکت', col: 'col-md-3' },
-        { type: 'select', name: 'redirect_code', responseKey: 'data.product_type.display_name', value: null, options: [{ label: '301 (دائمی)', value: 301 }, { label: '302 (موقتی)', value: 302 }], label: 'کد ریدایرکت', col: 'col-md-3' },
-        { type: 'input', name: 'order', responseKey: 'data.order', value: 'null', label: 'ترتیب', col: 'col-md-3' },
-        { type: 'input', name: 'intro_video', responseKey: 'data.intro.video', value: 'null', label: 'لینک فیلم معرفی', col: 'col-md-3' },
-        { type: 'input', name: 'intro_photo', responseKey: 'data.intro.photo', value: 'null', label: 'تامبنیل کلیپ', col: 'col-md-3' },
-        { type: 'input', name: 'base_price', responseKey: 'data.base_price', value: 'null', label: 'قیمت پایه', col: 'col-md-3' },
-        { type: 'optionGroupRadio', name: 'is_free', options: [{ label: 'رایگان باشد', value: 1 }, { label: 'رایگان نباشد', value: 0 }], responseKey: 'data.is_free', value: null, label: '', col: 'col-md-3' },
-        { type: 'input', name: 'discount', responseKey: 'data.discount', value: 'null', label: 'تخفیف (%)', col: 'col-md-3' },
-        { type: 'optionGroupRadio', name: 'amountLimit', options: [{ label: 'نامحدود', value: 0 }, { label: 'محدود', value: 1 }], responseKey: '', value: 'null', label: 'محدودیت موجودی', col: 'col-md-3' },
-        { type: 'input', name: 'amount', responseKey: 'data.amount', value: 'null', label: 'تعداد موجود', col: 'col-md-3' },
-        { type: 'optionGroupRadio', name: 'enable', options: [{ label: 'غیرفعال', value: 0 }, { label: 'فعال', value: 1 }], responseKey: 'data.enable', value: 'null', label: 'وضعیت', col: 'col-md-3' },
-        { type: 'optionGroupRadio', name: 'discount', options: [{ label: 'عدم نمایش', value: 0 }, { label: 'نمایش', value: 1 }], responseKey: 'data.discount', value: 'null', label: 'نمایش', col: 'col-md-3' },
-        { type: 'select', name: 'attribute_set', options: [{ label: 'اردو', value: 1 }, { label: 'همایش', value: 2 }, { label: 'فیلم استودیو', value: 3 }, { label: 'جزوه درس', value: 4 }, { label: 'کتاب', value: 5 }, { label: 'پیش فرض', value: 6 }, { label: 'محصول اشتراک', value: 7 }, { label: 'آزمون', value: 8 }], responseKey: 'data.attribute_set.id', value: 'null', label: 'دسته صفت', col: 'col-md-3' },
-        { type: 'input', name: 'order', responseKey: 'data.order', value: 'null', label: 'اسلوگان', col: 'col-md-3' },
-        { type: 'input', name: 'short_description', responseKey: 'data.description.short', value: 'null', label: 'توضیحات مختصر', col: 'col-md-3' },
-        { type: 'input', name: 'long_description', responseKey: 'data.description.long', value: 'null', label: 'توضیحات اجمالی', col: 'col-md-3' },
-        { type: 'input', name: 'special_description', responseKey: 'data.description.special', value: 'null', label: 'توضیحات خاص', col: 'col-md-3' },
-        { type: 'input', name: 'order', responseKey: 'data.order', value: 'null', label: 'اسلوگان', col: 'col-md-3' },
-        { type: 'input', name: 'order', responseKey: 'data.order', value: 'null', label: 'اسلوگان', col: 'col-md-3' },
-
-        { type: 'input', name: 'redirect_url', responseKey: 'data.redirect_url', value: 'null', label: 'نام', col: 'col-md-3' },
-        { type: 'select', name: 'product_type', responseKey: 'data.product_type.display_name', value: null, options: [{ label: 'ساده', value: 1 }, { label: 'قابل انتخاب', value: 2 }, { label: 'قابل پیکربندی', value: 3 }], label: 'نوع محصول', col: 'col-md-3' },
-
-        { type: 'input', name: 'price', responseKey: 'data.price.base', value: 'null', label: 'قیمت', col: 'col-md-3' }
-      ]
+        { type: 'space', name: 'space', label: 'اطلاعات کاربر', col: 'col-md-12' },
+        { type: 'input', name: 'user_id', responseKey: 'data.user.id', label: 'شناسه کاربر', col: 'col-md-3' },
+        { type: 'input', name: 'first_name', responseKey: 'data.user.first_name', label: 'نام', col: 'col-md-3' },
+        { type: 'input', name: 'last_name', responseKey: 'data.user.last_name', label: 'نام خانوادگی', col: 'col-md-3' },
+        { type: 'input', name: 'mobile', responseKey: 'data.user.mobile', label: 'موبایل', col: 'col-md-3' },
+        { type: 'input', name: 'national_code', responseKey: 'data.user.national_code', label: 'کد ملی', col: 'col-md-3' },
+        { type: 'input', name: 'profile_completion', responseKey: 'data.user.profile_completion', label: 'درصد تکمیل پروفایل', col: 'col-md-3' },
+        { type: 'space', name: 'space', label: 'اطلاعات سفارش', col: 'col-md-12' },
+        { type: 'input', name: 'id', responseKey: 'data.id', label: 'شناسه سفارش', col: 'col-md-3' },
+        { type: 'input', name: 'orderstatus', responseKey: 'data.orderstatus.name', value: 'null', label: 'وضعیت سفارش', col: 'col-md-3' },
+        { type: 'input', name: 'paymentstatus', responseKey: 'data.paymentstatus.name', value: 'null', label: 'وضعیت پرداخت', col: 'col-md-3' },
+        { type: 'input', name: 'price', responseKey: 'data.price', value: 'null', label: 'مبلغ(تومان)', col: 'col-md-3' },
+        { type: 'input', name: 'paid_price', responseKey: 'data.paid_price', value: 'null', label: 'مبلغ پرداخت شده(تومان)', col: 'col-md-3' },
+        { type: 'input', name: 'discount', responseKey: 'data.discount', value: 'null', label: 'مبلغ تخفیف (تومان)', col: 'col-md-3' },
+        { type: 'input', name: 'completed_at', responseKey: 'data.completed_at', value: 'null', label: 'تاریخ تکمیل', col: 'col-md-3' },
+        { type: 'hidden', name: 'orderproducts', responseKey: 'data.orderproducts', value: 'null', label: 'تاریخ تکمیل', col: 'col-md-3' }
+      ],
+      orderproducts: []
     }
   },
   created () {
     this.api += '/' + this.$route.params.id
+  },
+  methods: {
+    afterLoadInputData () {
+      const orderproductsIndex = this.inputs.findIndex(item => item.name === 'orderproducts')
+      this.orderproducts = this.inputs[orderproductsIndex].value
+    }
   }
 }
 </script>
