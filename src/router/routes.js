@@ -67,7 +67,16 @@ const routes = [
               { name: 'Admin.Product.Index', path: '', component: () => import('pages/Admin/Sets/Index') },
               { name: 'Admin.Product.Create', path: 'create', component: () => import('pages/Admin/Sets/Create') },
               { name: 'Admin.Product.Show', path: ':id', component: () => import('pages/Admin/Sets/Show') },
-              { name: 'Admin.Product.Edit', path: ':id/edit', component: () => import('pages/Admin/Sets/Edit') }
+              { name: 'Admin.Product.Edit', path: ':id/edit', component: () => import('pages/Admin/Sets/Edit') }]
+          },
+          {
+            path: 'coupon',
+            component: () => import('pages/Admin/index'),
+            children: [
+              { name: 'Admin.Coupon.Index', path: '', component: () => import('pages/Admin/Coupon/Index') },
+              { name: 'Admin.Coupon.Create', path: 'create', component: () => import('pages/Admin/Coupon/Create') },
+              { name: 'Admin.Coupon.Show', path: ':id', component: () => import('pages/Admin/Coupon/Show') },
+              { name: 'Admin.Coupon.Edit', path: ':id/edit', component: () => import('pages/Admin/Coupon/Edit') }
             ]
           }
         ]
