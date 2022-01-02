@@ -82,16 +82,6 @@ export default {
     },
 
     redirectTo () {
-      if (this.$route.query.redirectTo_exam) {
-        this.$router.push({
-          name: 'onlineQuiz.StartExamAutomatically',
-          params: {
-            examId: this.$route.query.redirectTo_exam,
-            autoStart: this.$route.query.exam_auto_start
-          }
-        })
-        return
-      }
       let redirectTo = window.localStorage.getItem('redirectTo')
       if (!redirectTo) {
         redirectTo = 'home'

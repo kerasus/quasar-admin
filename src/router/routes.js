@@ -3,9 +3,6 @@ const routes = [
   {
     path: '/',
     component: () => import('layouts/App'),
-    meta: {
-      middlewares: [auth]
-    },
     children: [
       {
         path: '/auth',
@@ -48,6 +45,9 @@ const routes = [
       {
         path: '/',
         component: () => import('layouts/MainLayout.vue'),
+        meta: {
+          middlewares: [auth]
+        },
         children: [
           { name: 'home', path: '/', component: () => import('pages/Index') },
           // {

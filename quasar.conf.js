@@ -21,7 +21,8 @@ const config = {
   // https://v2.quasar.dev/quasar-cli/boot-files
   boot: [
     'i18n',
-    'axios'
+    'axios',
+    'middleware'
   ],
 
   // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -83,16 +84,17 @@ const config = {
         secure: false,
         pathRewrite: {
           '^/alaa/api/v2': ''
-        },
-        '/3a/api/v1': {
-          target: 'https://office.alaatv.com:500/api/v1',
-          changeOrigin: true,
-          secure: false,
-          pathRewrite: {
-            '^/3a/api/v1': ''
-          }
+        }
+      },
+      '/3a/api/v1': {
+        target: 'https://office.alaatv.com:500/api/v1',
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: {
+          '^/3a/api/v1': ''
         }
       }
+
     }
   },
 
