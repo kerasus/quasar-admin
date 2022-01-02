@@ -67,6 +67,11 @@ export default {
           routeName: 'Admin.Product.Index'
         },
         {
+          title: 'بن ها',
+          icon: 'card_membership',
+          routeName: 'Admin.Coupon.Index'
+        },
+        {
           title: 'بانک سوال',
           icon: 'storage',
           routeName: 'EntityIndex'
