@@ -64,7 +64,7 @@ export default {
         {
           title: 'کوپن ها',
           icon: 'local_library',
-          routeName: 'Admin.Transaction.Index'
+          routeName: 'Admin.Coupon.Index'
         },
         {
           title: 'محتوا',
