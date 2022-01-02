@@ -1,7 +1,11 @@
+import { auth } from './middleware/middleware'
 const routes = [
   {
     path: '/',
     component: () => import('layouts/App'),
+    meta: {
+      middlewares: [auth]
+    },
     children: [
       {
         path: '/auth',
@@ -14,6 +18,9 @@ const routes = [
       {
         path: 'admin',
         component: () => import('layouts/MainLayout.vue'),
+        meta: {
+          middlewares: [auth]
+        },
         children: [
           { name: 'Admin.Settings', path: 'settings', component: () => import('pages/Admin/Settings') },
           {
