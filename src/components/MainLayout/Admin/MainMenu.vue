@@ -75,6 +75,11 @@ export default {
           title: 'دسته محتوا',
           icon: 'local_library',
           routeName: 'Admin.Transaction.Index'
+        },
+        {
+          title: 'تنظیمات',
+          icon: 'local_library',
+          routeName: 'Admin.Settings'
         }
         // {
         //   title: 'بانک سوال',
