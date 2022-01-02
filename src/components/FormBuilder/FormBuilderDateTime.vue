@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import moment from "moment-jalaali";
+import moment from 'moment-jalaali'
 import inputMixin from 'components/FormBuilder/inputMixin'
 export default {
   name: 'FormBuilderDateTime',
@@ -43,7 +43,7 @@ export default {
       type: String
     }
   },
-emits: ['update:value'],
+  emits: ['update:value'],
   computed: {
     canShowTime () {
       return (!this.range && !this.multiple) && this.time

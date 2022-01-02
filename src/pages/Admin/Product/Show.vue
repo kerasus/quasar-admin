@@ -1,7 +1,7 @@
 <template>
   <entity-show
     v-model:value="inputs"
-    title="اطلاعات کاربر"
+    title="اطلاعات محصول"
     :api="api"
     :entity-id-key="entityIdKey"
     :entity-param-key="entityParamKey"
@@ -11,7 +11,8 @@
 </template>
 
 <script>
-import EntityShow from 'components/Entity/Show/EntityShow'
+import { EntityShow } from 'quasar-crud'
+
 export default {
   name: 'Show',
   components: { EntityShow },

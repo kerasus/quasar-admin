@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import EntityIndex from 'components/Entity/Index/EntityIndex'
+import { EntityIndex } from 'quasar-crud'
 
 export default {
   name: 'Index',

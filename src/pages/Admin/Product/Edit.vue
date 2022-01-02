@@ -1,7 +1,7 @@
 <template>
   <entity-edit
     v-model:value="inputs"
-    title="اطلاعات کاربر"
+    title="اطلاعات محصول"
     :api="api"
     :entity-id-key="entityIdKey"
     :entity-param-key="entityParamKey"
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import EntityEdit from 'components/Entity/Edit/EntityEdit'
+import { EntityEdit } from 'quasar-crud'
 export default {
   name: 'Edit',
   components: { EntityEdit },
@@ -41,9 +41,9 @@ export default {
         { type: 'optionGroupRadio', name: 'discount', options: [{ label: 'عدم نمایش', value: 0 }, { label: 'نمایش', value: 1 }], responseKey: 'data.discount', label: 'نمایش', col: 'col-md-3' },
         { type: 'select', name: 'attribute_set', options: [{ label: 'اردو', value: 1 }, { label: 'همایش', value: 2 }, { label: 'فیلم استودیو', value: 3 }, { label: 'جزوه درس', value: 4 }, { label: 'کتاب', value: 5 }, { label: 'پیش فرض', value: 6 }, { label: 'محصول اشتراک', value: 7 }, { label: 'آزمون', value: 8 }], responseKey: 'data.attribute_set.id', label: 'دسته صفت', col: 'col-md-3' },
         { type: 'input', name: 'order', responseKey: 'data.order', label: 'اسلوگان', col: 'col-md-3' },
-        { type: 'input-editor', name: 'short_description', responseKey: 'data.description.short', label: 'توضیحات مختصر', col: 'col-md-6' },
-        { type: 'input-editor', name: 'long_description', responseKey: 'data.description.long', label: 'توضیحات اجمالی', col: 'col-md-6' },
-        { type: 'input-editor', name: 'special_description', responseKey: 'data.description.special', label: 'توضیحات خاص', col: 'col-md-6' },
+        { type: 'input-editor', name: 'short_description', responseKey: 'data.description.short', label: 'توضیحات مختصر', col: 'col-md-12' },
+        { type: 'input-editor', name: 'long_description', responseKey: 'data.description.long', label: 'توضیحات اجمالی', col: 'col-md-12' },
+        { type: 'input-editor', name: 'special_description', responseKey: 'data.description.special', label: 'توضیحات خاص', col: 'col-md-12' },
         { type: 'select', name: 'tags', options: [], responseKey: 'data.tags', multiple: true, useChips: true, createNewValue: true, label: 'تگ ها', col: 'col-md-3' },
         { type: 'select', name: 'sample_contents', options: [], responseKey: 'data.sample_contents', multiple: true, useChips: true, createNewValue: true, label: 'کانتنت های معرفی کننده محصول', col: 'col-md-3' },
         { type: 'select', name: 'recommender_contents', options: [], responseKey: 'data.recommender_contents.recommenders.contents', multiple: true, useChips: true, createNewValue: true, label: 'کانتنت های پیشنهاد دهنده محصول', col: 'col-md-3' },
