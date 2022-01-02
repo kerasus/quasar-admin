@@ -6,7 +6,7 @@
       :api="api"
       :table="table"
       :table-keys="tableKeys"
-      :create-route-name="'Admin.User.Create'"
+      :create-route-name="'Admin.Order.Create'"
     >
       <template v-slot:table-cell="{inputData, showConfirmRemoveDialog}">
         <q-td :props="inputData.props">
@@ -19,7 +19,7 @@
             />
           </template>
           <template v-else-if="inputData.props.col.name === 'actions'">
-            <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Product.Show', params: {id: inputData.props.row.id}}">
+            <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Order.Show', params: {id: inputData.props.row.id}}">
               <q-tooltip>
                 مشاهده
               </q-tooltip>
@@ -69,46 +69,60 @@ export default {
             field: row => row.id
           },
           {
-            name: 'photo',
+            name: 'first_name',
             required: true,
-            label: 'تصویر',
+            label: 'نام',
             align: 'left',
-            field: row => row.photo
+            field: row => row.user.first_name
           },
           {
-            name: 'title',
+            name: 'first_name',
             required: true,
-            label: 'عنوان',
+            label: 'نام خانوادگی',
             align: 'left',
-            field: row => row.title
+            field: row => row.user.last_name
           },
           {
-            name: 'product_type',
+            name: 'mobile',
             required: true,
-            label: 'نوع',
+            label: 'موبایل',
             align: 'left',
-            field: row => row.product_type.display_name
+            field: row => row.user.mobile
           },
           {
-            name: 'attribute_set',
+            name: 'national_code',
             required: true,
-            label: 'دسته',
+            label: 'کدملی',
             align: 'left',
-            field: row => row.attribute_set.name
+            field: row => row.user.national_code
           },
           {
-            name: 'enable',
+            name: 'price',
             required: true,
-            label: 'فعال',
+            label: 'مبلغ(تومان)',
             align: 'left',
-            field: row => (row.enable) ? 'فعال' : 'غیرفعال'
+            field: row => row.price
           },
           {
-            name: 'is_free',
+            name: 'paid_price',
             required: true,
-            label: 'فعال',
+            label: 'پرداخت شده(تومان)',
             align: 'left',
-            field: row => (row.is_free) ? 'رایگان' : 'پولی'
+            field: row => row.price
+          },
+          {
+            name: 'orderstatus',
+            required: true,
+            label: 'وضعیت سفارش',
+            align: 'left',
+            field: row => row.orderstatus.name
+          },
+          {
+            name: 'paymentstatus',
+            required: true,
+            label: 'وضعیت پرداخت',
+            align: 'left',
+            field: row => row.paymentstatus.name
           },
           {
             name: 'actions',
