@@ -96,7 +96,7 @@ export default {
   },
   methods: {
     logout () {
-      this.$router.push({ name: 'login' })
+      this.$store.dispatch('Auth/logout')
     }
   }
 }
