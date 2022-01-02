@@ -1,7 +1,7 @@
 <template>
   <div>
     <entity-index
-      v-model="inputs"
+      v-model:value="inputs"
       title="لیست کاربران"
       :api="api"
       :table="table"
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import EntityIndex from 'components/Entity/Index/EntityIndex'
+import { EntityIndex } from 'quasar-crud'
 
 export default {
   name: 'Index',
@@ -51,6 +51,7 @@ export default {
   data () {
     return {
       expanded: true,
+      // api: '/alaa/api/v2/admin/user',
       api: '/reqres/api/users',
       tableKeys: {
         data: 'data',
@@ -109,9 +110,11 @@ export default {
       inputs: [
         { type: 'input', name: 'id', value: null, label: 'شناسه', col: 'col-md-3' },
         { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-3' },
-        { type: 'select', name: 'gender', value: null, options: ['Male', 'Female'], label: 'جنسیت', col: 'col-md-3' },
-        { type: 'select', name: 'status', value: null, options: ['Active', 'Inactive'], label: 'وضعیت', col: 'col-md-3' },
-        { type: 'dateRange', name: 'created_at_range', value: [], label: 'بازه تاریخ عضویت', col: 'col-md-6' }
+        { type: 'input', name: 'name', value: null, label: 'نام خانوادگی', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'کدملی', col: 'col-md-3' },
+        { type: 'select', name: 'gender', value: null, options: ['پسر', 'دختر'], label: 'جنسیت', col: 'col-md-4' },
+        { type: 'select', name: 'status', value: null, options: ['فعال', 'غیر فعال'], label: 'وضعیت', col: 'col-md-4' },
+        { type: 'dateRange', name: 'created_at_range', value: [], label: 'بازه تاریخ عضویت', col: 'col-md-4' }
       ]
     }
   },

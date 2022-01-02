@@ -12,8 +12,8 @@ export default function () {
     layoutHeaderElevated: false,
     layoutHeaderBordered: false,
 
-    layoutHeaderNacTabs: true,
-    layoutHeaderNacTabsModel: true,
+    layoutHeaderNavTabs: true,
+    layoutHeaderNavTabsModel: 1,
 
     layoutLeftDrawer: true,
     layoutLeftDrawerVisible: true,

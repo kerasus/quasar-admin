@@ -8,35 +8,16 @@
 </template>
 
 <script>
-import inputMixin from 'components/FormBuiler/inputMixin'
+import inputMixin from 'components/FormBuilder/inputMixin'
 export default {
   name: 'FormBuilderAvatar',
+  mixins: [inputMixin],
   props: {
     value: {
-      default: ''
-    },
-    size: {
-      default: '50px',
-      type: String
-    },
-    fontSize: {
-      default: '14px',
-      type: String
-    },
-    color: {
-      default: 'primary',
-      type: String
-    },
-    textColor: {
-      default: 'white',
-      type: String
-    },
-    src: {
       default: '',
       type: String
     }
-  },
-  mixins: [inputMixin]
+  }
 }
 </script>
 

@@ -58,12 +58,12 @@ export function updateLayoutHeaderBordered (state, data) {
   state.layoutHeaderBordered = data
 }
 
-export function updateLayoutHeaderNacTabs (state, data) {
-  state.layoutHeaderNacTabs = data
+export function updateLayoutHeaderNavTabs (state, data) {
+  state.layoutHeaderNavTabs = data
 }
 
-export function updateLayoutHeaderNacTabsModel (state, data) {
-  state.layoutHeaderNacTabsModel = data
+export function updateLayoutHeaderNavTabsModel (state, data) {
+  state.layoutHeaderNavTabsModel = data
 }
 
 export function updateLayoutLeftDrawer (state, data) {

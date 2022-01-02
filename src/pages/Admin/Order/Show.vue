@@ -1,7 +1,7 @@
 <template>
   <entity-show
     v-model:value="inputs"
-    title="اطلاعات محصول"
+    title="اطلاعات سفارش"
     :api="api"
     :entity-id-key="entityIdKey"
     :entity-param-key="entityParamKey"
