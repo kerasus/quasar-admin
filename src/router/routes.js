@@ -59,6 +59,16 @@ const routes = [
               { name: 'Admin.Transaction.Show', path: ':id', component: () => import('pages/Admin/Transaction/Show') },
               { name: 'Admin.Transaction.Edit', path: ':id/edit', component: () => import('pages/Admin/Transaction/Edit') }
             ]
+          },
+          {
+            path: 'sets',
+            component: () => import('pages/Admin/index'),
+            children: [
+              { name: 'Admin.Product.Index', path: '', component: () => import('pages/Admin/Sets/Index') },
+              { name: 'Admin.Product.Create', path: 'create', component: () => import('pages/Admin/Sets/Create') },
+              { name: 'Admin.Product.Show', path: ':id', component: () => import('pages/Admin/Sets/Show') },
+              { name: 'Admin.Product.Edit', path: ':id/edit', component: () => import('pages/Admin/Sets/Edit') }
+            ]
           }
         ]
       },

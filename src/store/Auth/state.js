@@ -1,7 +1,7 @@
 export default function () {
   return {
     user: null,
-    token: null,
+    accessToken: null,
     tokenExpiresAt: null,
     tokenType: null
   }
