@@ -1,7 +1,7 @@
 <template>
   <entity-create
     v-model:value="inputs"
-    title="ثبت محصول جدید"
+    title="ثبت سفارش جدید"
     :api="api"
     :entity-id-key-in-response="entityIdKeyInResponse"
     :show-route-param-key="showRouteParamKey"

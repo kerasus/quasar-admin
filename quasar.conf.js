@@ -229,6 +229,7 @@ function setProxy (proxy, key, target) {
 
 setProxy(config.devServer.proxy, '/reqres/api', 'https://reqres.in/api')
 // setProxy(config.devServer.proxy, '/alaa/api/v2', 'https://alaatv.com/api/v2')
+setProxy(config.devServer.proxy, '/alaa/web', 'https://office.alaatv.com:700')
 setProxy(config.devServer.proxy, '/alaa/api/v2', 'https://office.alaatv.com:700/api/v2')
 
 module.exports = function (ctx) {
