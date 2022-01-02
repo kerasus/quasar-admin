@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import EntityIndex from 'components/Entity/Index/EntityIndex'
+import { EntityIndex } from 'quasar-crud'
 
 export default {
   name: 'Index',
@@ -51,7 +51,8 @@ export default {
   data () {
     return {
       expanded: true,
-      api: '/reqres/api/users',
+      api: '/alaa/api/v2/user',
+      // api: '/reqres/api/users',
       tableKeys: {
         data: 'data',
         total: 'total',

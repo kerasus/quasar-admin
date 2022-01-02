@@ -4,8 +4,6 @@
       <component
         :is="getComponent(input)"
         v-model:value="input.value"
-        @input="change($event, inputIndex)"
-        @change="change($event, inputIndex)"
         :label="input.label"
         :disable="disable || input.disable"
         :options="input.options"
@@ -25,6 +23,8 @@
         :color="input.color"
         :text-color="input.textColor"
         :icon="input.icon"
+        @input="change($event, inputIndex)"
+        @change="change($event, inputIndex)"
       />
     </div>
   </div>
@@ -36,6 +36,20 @@ import inputMixin from 'components/FormBuilder/inputMixin'
 
 export default {
   name: 'FormBuilder',
+  components: {
+    FormBuilderFile: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderFile')),
+    FormBuilderInput: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderInput')),
+    FormBuilderInputEditor: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderInputEditor')),
+    FormBuilderAvatar: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderAvatar')),
+    FormBuilderSelect: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderSelect')),
+    FormBuilderOptionGroup: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderOptionGroup')),
+    FormBuilderCheckbox: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderCheckbox')),
+    FormBuilderSlider: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderSlider')),
+    FormBuilderRangeSlider: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderRangeSlider')),
+    FormBuilderSpace: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderSpace')),
+    FormBuilderDateTime: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderDateTime'))
+  },
+  mixins: [inputMixin],
   props: {
     value: {
       default: () => [],
@@ -46,6 +60,7 @@ export default {
       type: Boolean
     }
   },
+  emits: ['input'],
   data () {
     return {
       currentInput: null,
@@ -55,19 +70,6 @@ export default {
       dateTime_Time: null
     }
   },
-  components: {
-    FormBuilderFile: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderFile')),
-    FormBuilderInput: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderInput')),
-    FormBuilderInputEditor: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderInputEditor')),
-    FormBuilderAvatar: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderAvatar')),
-    FormBuilderSelect: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderSelect')),
-    FormBuilderOptionGroup: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderOptionGroup')),
-    FormBuilderSlider: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderSlider')),
-    FormBuilderRangeSlider: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderRangeSlider')),
-    FormBuilderSpace: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderSpace')),
-    FormBuilderDateTime: defineAsyncComponent(() => import('components/FormBuilder/FormBuilderDateTime'))
-  },
-  mixins: [inputMixin],
   methods: {
     getComponent (input) {
       if (
@@ -80,6 +82,7 @@ export default {
       if (
         input.type === 'dateMultipleRange' ||
         input.type === 'dateRange' ||
+        input.type === 'date' ||
         input.type === 'dateTime' ||
         input.type === 'time'
       ) {

@@ -11,13 +11,13 @@
 import inputMixin from 'components/FormBuilder/inputMixin'
 export default {
   name: 'FormBuilderAvatar',
+  mixins: [inputMixin],
   props: {
     value: {
       default: '',
       type: String
     }
-  },
-  mixins: [inputMixin]
+  }
 }
 </script>
 

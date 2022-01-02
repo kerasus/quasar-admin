@@ -1,12 +1,11 @@
 <template>
   <div>
-    <q-option-group
+    <q-checkbox
       v-model="inputData"
-      :options="options"
       :color="color"
-      :inline="inline"
-      :dense="dense"
-      :type="type"
+      :label="label"
+      :true-value="trueValue"
+      :false-value="falseValue"
       :disable="disable"
       @update:model-value="change($event)"
     />
@@ -16,20 +15,21 @@
 <script>
 import inputMixin from 'components/FormBuilder/inputMixin'
 export default {
-  name: 'FormBuilderOptionGroup',
+  name: 'FormBuilderCheckbox',
   mixins: [inputMixin],
   props: {
     value: {
       default: '',
       type: [Object, String, Array, Number, Boolean]
     },
-    options: {
-      default: () => [], // { label: 'Option 1', value: 'op1' }
-      type: Array
+    trueValue: {
+      default: true,
+      type: [Object, String, Array, Number, Boolean]
+    },
+    falseValue: {
+      default: false,
+      type: [Object, String, Array, Number, Boolean]
     }
-  },
-  methods: {
-
   }
 }
 </script>

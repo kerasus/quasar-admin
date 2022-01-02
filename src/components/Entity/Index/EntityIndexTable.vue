@@ -12,7 +12,7 @@
       :rows-per-page-options="[]"
       @request="onChangePage"
     >
-      <template v-slot:top="props">
+      <template #top="props">
         <div class="col-2 q-table__title">{{ title }}</div>
         <q-space />
         <q-select
@@ -38,13 +38,13 @@
         <q-btn
           flat round dense
           :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
-          @click="props.toggleFullscreen"
           class="q-ml-md"
+          @click="props.toggleFullscreen"
         />
       </template>
 
-      <template v-slot:body-cell="props">
-        <slot name="entity-index-table-cell" v-bind:inputData="{props}">
+      <template #body-cell="props">
+        <slot name="entity-index-table-cell" :inputData="{props}">
           <q-td :props="props">
             {{ props.value }}
           </q-td>
@@ -56,12 +56,12 @@
     <div v-if="inputData.pagination.rowsNumber > 0" class="row justify-center q-mt-md">
       <q-pagination
         v-model="inputData.pagination.page"
-        @update:model-value="onChangePage"
         :max="pagesNumber"
         :max-pages="6"
         boundary-numbers
         direction-links
         boundary-links
+        @update:model-value="onChangePage"
       />
     </div>
   </div>
@@ -94,11 +94,6 @@ function wrapCsvValue (val, formatFn) {
 export default {
   name: 'EntityIndexTable',
   mixins: [inputMixin],
-  computed: {
-    pagesNumber () {
-      return Math.ceil(this.inputData.pagination.rowsNumber / this.inputData.pagination.rowsPerPage)
-    }
-  },
   props: {
     value: {
       default: () => {
@@ -128,7 +123,7 @@ export default {
       type: Array
     },
     changePage: {
-      default: (pagination) => {},
+      default: () => {},
       type: Function
     }
   },
@@ -136,6 +131,11 @@ export default {
     return {
       visibleColumns: [],
       tableKey: Date.now()
+    }
+  },
+  computed: {
+    pagesNumber () {
+      return Math.ceil(this.inputData.pagination.rowsNumber / this.inputData.pagination.rowsPerPage)
     }
   },
   mounted () {

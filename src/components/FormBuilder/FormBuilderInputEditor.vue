@@ -1,8 +1,8 @@
 <template>
   <p v-text="label"/>
   <q-editor
+    v-if="!disable"
     v-model="inputData"
-    @update:model-value="change($event)"
     :dense="$q.screen.lt.md"
     :toolbar="[
     [
@@ -83,7 +83,10 @@
     times_new_roman: 'Times New Roman',
     verdana: 'Verdana'
   }"
+    @update:model-value="change($event)"
   />
+  <!--eslint-disable-next-line-->
+  <div v-else v-html="inputData" />
 </template>
 
 <script>
@@ -91,6 +94,7 @@ import inputMixin from 'components/FormBuilder/inputMixin'
 
 export default {
   name: 'FormBuilderInputEditor',
+  mixins: [inputMixin],
   props: {
     value: {
       default: '',
@@ -108,8 +112,7 @@ export default {
     if (this.inputData === false) {
       this.inputData = ''
     }
-  },
-  mixins: [inputMixin]
+  }
 }
 </script>
 

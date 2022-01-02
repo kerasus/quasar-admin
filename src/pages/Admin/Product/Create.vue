@@ -11,7 +11,8 @@
 </template>
 
 <script>
-import EntityCreate from 'components/Entity/Create/EntityCreate'
+import { EntityCreate } from 'quasar-crud'
+
 export default {
   name: 'Create',
   components: { EntityCreate },

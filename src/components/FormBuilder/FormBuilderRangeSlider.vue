@@ -4,11 +4,11 @@
       {{ label }}: از {{ inputData.min }} تا {{ inputData.max }} ({{ min }} تا {{ max }})
     </q-badge>
     <q-range
-      @input="change($event)"
       v-model="inputData"
       :min="min"
       :max="max"
       :disable="disable"
+      @input="change($event)"
     />
   </div>
 </template>
@@ -17,6 +17,7 @@
 import inputMixin from 'components/FormBuilder/inputMixin'
 export default {
   name: 'FormBuilderRangeSlider',
+  mixins: [inputMixin],
   props: {
     value: {
       default: () => {
@@ -27,8 +28,7 @@ export default {
   },
   methods: {
 
-  },
-  mixins: [inputMixin]
+  }
 }
 </script>
 
