@@ -1,7 +1,7 @@
 <template>
   <entity-edit
     v-model:value="inputs"
-    title="ویرایش محصول"
+    title="ویرایش سفارش"
     :api="api"
     :entity-id-key="entityIdKey"
     :entity-param-key="entityParamKey"
