@@ -37,6 +37,26 @@ const routes = [
             ]
           },
           {
+            path: 'orders',
+            component: () => import('pages/Admin/index'),
+            children: [
+              { name: 'Admin.Order.Index', path: '', component: () => import('pages/Admin/Order/Index') },
+              { name: 'Admin.Order.Create', path: 'create', component: () => import('pages/Admin/Order/Create') },
+              { name: 'Admin.Order.Show', path: ':id', component: () => import('pages/Admin/Order/Show') },
+              { name: 'Admin.Order.Edit', path: ':id/edit', component: () => import('pages/Admin/Order/Edit') }
+            ]
+          },
+          {
+            path: 'transactions',
+            component: () => import('pages/Admin/index'),
+            children: [
+              { name: 'Admin.Transaction.Index', path: '', component: () => import('pages/Admin/Transaction/Index') },
+              { name: 'Admin.Transaction.Create', path: 'create', component: () => import('pages/Admin/Transaction/Create') },
+              { name: 'Admin.Transaction.Show', path: ':id', component: () => import('pages/Admin/Transaction/Show') },
+              { name: 'Admin.Transaction.Edit', path: ':id/edit', component: () => import('pages/Admin/Transaction/Edit') }
+            ]
+          },
+          {
             path: 'coupon',
             component: () => import('pages/Admin/index'),
             children: [

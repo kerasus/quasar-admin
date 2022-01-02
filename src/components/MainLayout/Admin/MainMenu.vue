@@ -42,21 +42,6 @@ export default {
     return {
       menuItems: [
         {
-          title: 'Inbox',
-          icon: 'inbox',
-          routeName: ''
-        },
-        {
-          title: 'Outbox',
-          icon: 'send',
-          routeName: ''
-        },
-        {
-          title: 'Trash',
-          icon: 'delete',
-          routeName: ''
-        },
-        {
           title: 'کاربران',
           icon: 'delete',
           routeName: 'Admin.User.Index'
@@ -67,20 +52,45 @@ export default {
           routeName: 'Admin.Product.Index'
         },
         {
-          title: 'بن ها',
+          title: 'سفارشات',
+          icon: 'local_library',
+          routeName: 'Admin.Order.Index'
+        },
+        {
+          title: 'تراکنش ها',
+          icon: 'local_library',
+          routeName: 'Admin.Transaction.Index'
+        },
+        {
+          title: 'کوپن ها',
           icon: 'card_membership',
           routeName: 'Admin.Coupon.Index'
         },
         {
-          title: 'بانک سوال',
-          icon: 'storage',
-          routeName: 'EntityIndex'
+          title: 'محتوا',
+          icon: 'local_library',
+          routeName: 'Admin.Transaction.Index'
         },
         {
-          title: 'نمونه نمایش',
-          icon: 'storage',
-          routeName: 'EntityShoew'
+          title: 'دسته محتوا',
+          icon: 'local_library',
+          routeName: 'Admin.Transaction.Index'
+        },
+        {
+          title: 'تنظیمات',
+          icon: 'local_library',
+          routeName: 'Admin.Settings'
         }
+        // {
+        //   title: 'بانک سوال',
+        //   icon: 'storage',
+        //   routeName: 'EntityIndex'
+        // },
+        // {
+        //   title: 'نمونه نمایش',
+        //   icon: 'storage',
+        //   routeName: 'EntityShoew'
+        // }
       ]
     }
   },
