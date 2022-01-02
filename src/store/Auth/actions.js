@@ -39,7 +39,6 @@ export function login (context, data) {
 export function logout (context) {
   context.commit('updateAccessToken', null)
   context.commit('updateUser', null)
-  context.commit('updateToken', null)
   context.commit('updateTokenType', null)
   context.commit('redirectToLogin')
 }
