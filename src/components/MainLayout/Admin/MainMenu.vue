@@ -60,6 +60,21 @@ export default {
           title: 'تراکنش ها',
           icon: 'local_library',
           routeName: 'Admin.Transaction.Index'
+        },
+        {
+          title: 'کوپن ها',
+          icon: 'local_library',
+          routeName: 'Admin.Transaction.Index'
+        },
+        {
+          title: 'محتوا',
+          icon: 'local_library',
+          routeName: 'Admin.Transaction.Index'
+        },
+        {
+          title: 'دسته محتوا',
+          icon: 'local_library',
+          routeName: 'Admin.Transaction.Index'
         }
         // {
         //   title: 'بانک سوال',
