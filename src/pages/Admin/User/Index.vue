@@ -6,6 +6,7 @@
       :api="api"
       :table="table"
       :table-keys="tableKeys"
+      :create-route-name="'Admin.User.Create'"
     >
       <template v-slot:table-cell="{inputData, showConfirmRemoveDialog}">
         <q-td :props="inputData.props">
@@ -19,7 +20,7 @@
               />
             </q-avatar>
           </template>
-          <template v-if="inputData.props.col.name === 'actions'">
+          <template v-else-if="inputData.props.col.name === 'actions'">
             <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.User.Show', params: {id: inputData.props.row.id}}">
               <q-tooltip>
                 مشاهده
@@ -32,7 +33,7 @@
               </q-tooltip>
             </q-btn>
           </template>
-          <template v-if="inputData.props.col.name !== 'avatar' && inputData.props.col.name !== 'actions'">
+          <template v-else>
             {{ inputData.props.value }}
           </template>
         </q-td>
@@ -42,7 +43,7 @@
 </template>
 
 <script>
-import EntityIndex from 'components/Entity/Index/EntityIndex'
+import { EntityIndex } from 'quasar-crud'
 
 export default {
   name: 'Index',
@@ -50,7 +51,8 @@ export default {
   data () {
     return {
       expanded: true,
-      api: '/reqres/api/users',
+      api: '/alaa/api/v2/user',
+      // api: '/reqres/api/users',
       tableKeys: {
         data: 'data',
         total: 'total',

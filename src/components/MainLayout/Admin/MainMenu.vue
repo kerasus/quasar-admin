@@ -62,6 +62,11 @@ export default {
           routeName: 'Admin.User.Index'
         },
         {
+          title: 'محصولات',
+          icon: 'local_library',
+          routeName: 'Admin.Product.Index'
+        },
+        {
           title: 'بانک سوال',
           icon: 'storage',
           routeName: 'EntityIndex'

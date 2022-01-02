@@ -9,14 +9,14 @@
           بارگذاری مجدد
         </q-tooltip>
       </q-btn>
-      <q-btn flat round icon="edit" @click="goToEditView()">
+      <q-btn flat round icon="check" @click="editEntity()">
         <q-tooltip>
-          ویرایش
+          ذخیره
         </q-tooltip>
       </q-btn>
-      <q-btn flat round icon="list" @click="goToIndexView()">
+      <q-btn flat round icon="close" @click="goToShowView()">
         <q-tooltip>
-          لیست
+          لغو
         </q-tooltip>
       </q-btn>
       <q-btn flat round :icon="(expanded) ? 'expand_less' : 'expand_more'" @click="expanded = !expanded">
@@ -28,7 +28,7 @@
     </template>
     <template #content>
       <q-expansion-item v-model="expanded">
-        <form-builder v-model:value="inputData" disable />
+        <form-builder v-model:value="inputData" :disable="false" />
         <q-inner-loading :showing="loading">
           <q-spinner-ball color="primary" size="50px" />
         </q-inner-loading>
@@ -42,9 +42,10 @@ import Portlet from 'components/Portlet'
 import EntityMixin from 'components/Entity/EntityMixin'
 import inputMixin from 'components/FormBuilder/inputMixin'
 import FormBuilder from 'components/FormBuilder/FormBuilder'
+import axios from 'axios'
 
 export default {
-  name: 'EntityShow',
+  name: 'EntityEdit',
   components: { Portlet, FormBuilder },
   mixins: [inputMixin, EntityMixin],
   props: {
@@ -68,11 +69,7 @@ export default {
       default: 'id',
       type: String
     },
-    editRouteName: {
-      default: '',
-      type: String
-    },
-    indexRouteName: {
+    showRouteName: {
       default: '',
       type: String
     },
@@ -96,8 +93,15 @@ export default {
     this.getData()
   },
   methods: {
-    goToEditView () {
-      this.$router.push({ name: this.editRouteName, params: { [this.entityParamKey]: this.getEntityId() } })
+    editEntity () {
+      const formData = this.getFormData()
+      axios.put(this.api, formData, { headers: this.getHeaders() })
+        .then(() => {
+          this.goToShowView()
+        })
+        .catch(() => {
+          this.getData()
+        })
     }
   }
 }

@@ -4,19 +4,14 @@
       {{ title }}
     </template>
     <template #toolbar>
-      <q-btn flat round icon="cached" @click="getData()">
+      <q-btn flat round icon="check" @click="createEntity()">
         <q-tooltip>
-          بارگذاری مجدد
+          ذخیره
         </q-tooltip>
       </q-btn>
-      <q-btn flat round icon="edit" @click="goToEditView()">
+      <q-btn flat round icon="close" @click="goToIndexView()">
         <q-tooltip>
-          ویرایش
-        </q-tooltip>
-      </q-btn>
-      <q-btn flat round icon="list" @click="goToIndexView()">
-        <q-tooltip>
-          لیست
+          لغو
         </q-tooltip>
       </q-btn>
       <q-btn flat round :icon="(expanded) ? 'expand_less' : 'expand_more'" @click="expanded = !expanded">
@@ -28,7 +23,7 @@
     </template>
     <template #content>
       <q-expansion-item v-model="expanded">
-        <form-builder v-model:value="inputData" disable />
+        <form-builder v-model:value="inputData" :disable="false" />
         <q-inner-loading :showing="loading">
           <q-spinner-ball color="primary" size="50px" />
         </q-inner-loading>
@@ -42,9 +37,10 @@ import Portlet from 'components/Portlet'
 import EntityMixin from 'components/Entity/EntityMixin'
 import inputMixin from 'components/FormBuilder/inputMixin'
 import FormBuilder from 'components/FormBuilder/FormBuilder'
+import axios from 'axios'
 
 export default {
-  name: 'EntityShow',
+  name: 'EntityCreate',
   components: { Portlet, FormBuilder },
   mixins: [inputMixin, EntityMixin],
   props: {
@@ -60,15 +56,15 @@ export default {
       default: '',
       type: String
     },
-    entityIdKey: {
+    entityIdKeyInResponse: {
       default: 'id',
       type: String
     },
-    entityParamKey: {
-      default: 'id',
+    showRouteName: {
+      default: '',
       type: String
     },
-    editRouteName: {
+    showRouteParamKey: {
       default: '',
       type: String
     },
@@ -92,12 +88,19 @@ export default {
       loading: false
     }
   },
-  created () {
-    this.getData()
-  },
   methods: {
-    goToEditView () {
-      this.$router.push({ name: this.editRouteName, params: { [this.entityParamKey]: this.getEntityId() } })
+    createEntity () {
+      this.loading = true
+      const formData = this.getFormData()
+      axios.post(this.api, formData, { headers: this.getHeaders() })
+        .then((response) => {
+          this.loading = false
+          this.$router.push({ name: this.showRouteName, params: { [this.showRouteParamKey]: response.data[this.entityIdKeyInResponse] } })
+        })
+        .catch(() => {
+          this.loading = false
+          this.getData()
+        })
     }
   }
 }

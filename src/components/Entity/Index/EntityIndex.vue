@@ -1,22 +1,17 @@
 <template>
   <portlet>
-    <template v-slot:title>
+    <template #title>
       {{ title }}
     </template>
-    <template v-slot:toolbar>
+    <template #toolbar>
       <q-btn flat round icon="search" @click="search">
         <q-tooltip>
           جستجو
         </q-tooltip>
       </q-btn>
-      <q-btn flat round icon="fullscreen">
+      <q-btn flat round icon="add" @click="goToCreatePage">
         <q-tooltip>
-          نمایش تمام صفحه
-        </q-tooltip>
-      </q-btn>
-      <q-btn flat round icon="fullscreen_exit">
-        <q-tooltip>
-          نمایش عادی
+          جدید
         </q-tooltip>
       </q-btn>
       <q-btn flat round icon="cached" @click="reload">
@@ -30,15 +25,10 @@
           <span v-else>نمایش فرم</span>
         </q-tooltip>
       </q-btn>
-      <q-btn flat round icon="settings">
-        <q-tooltip>
-          تنظیمات
-        </q-tooltip>
-      </q-btn>
     </template>
-    <template v-slot:content>
+    <template #content>
       <q-expansion-item v-model="expanded">
-        <form-builder v-model="inputData" />
+        <form-builder v-model:value="inputData" />
         <div class="row">
           <div class="col">
             <EntityIndexTable
@@ -48,8 +38,8 @@
               :loading="loading"
               :change-page="changePage"
             >
-              <template v-slot:entity-index-table-cell="{inputData}">
-                <slot name="table-cell" v-bind:inputData="inputData" v-bind:showConfirmRemoveDialog="showConfirmRemoveDialog">
+              <template #entity-index-table-cell="{inputData}">
+                <slot name="table-cell" :inputData="inputData" :showConfirmRemoveDialog="showConfirmRemoveDialog">
                   <q-td :props="inputData.props">
                     {{ inputData.props.value }}
                   </q-td>
@@ -65,10 +55,9 @@
             <q-icon name="warning" color="primary" size="md"/>
             <span class="q-ml-sm">{{ confirmRemoveMessage }}</span>
           </q-card-section>
-
           <q-card-actions align="right">
-            <q-btn flat label="انصراف" color="primary" v-close-popup />
-            <q-btn flat label="تایید" color="primary" v-close-popup @click="removeItem" />
+            <q-btn v-close-popup flat label="انصراف" color="primary" />
+            <q-btn v-close-popup flat label="تایید" color="primary" @click="removeItem" />
           </q-card-actions>
         </q-card>
       </q-dialog>
@@ -79,12 +68,15 @@
 <script>
 import axios from 'axios'
 import Portlet from 'components/Portlet'
-import inputMixin from 'components/FormBuiler/inputMixin'
-import FormBuilder from 'components/FormBuiler/FormBuilder'
+import EntityMixin from 'components/Entity/EntityMixin'
+import inputMixin from 'components/FormBuilder/inputMixin'
+import FormBuilder from 'components/FormBuilder/FormBuilder'
 import EntityIndexTable from 'components/Entity/Index/EntityIndexTable'
 
 export default {
   name: 'EntityIndex',
+  components: { Portlet, EntityIndexTable, FormBuilder },
+  mixins: [inputMixin, EntityMixin],
   props: {
     value: {
       default: () => [],
@@ -95,6 +87,10 @@ export default {
       type: String
     },
     api: {
+      default: '',
+      type: String
+    },
+    createRouteName: {
       default: '',
       type: String
     },
@@ -117,8 +113,7 @@ export default {
       type: Object
     }
   },
-  mixins: [inputMixin],
-  components: { Portlet, EntityIndexTable, FormBuilder },
+  emits: ['onPageChanged', 'catchError'],
   data () {
     return {
       removeIdKey: 'id',
@@ -144,6 +139,9 @@ export default {
     this.search()
   },
   methods: {
+    goToCreatePage () {
+      this.$router.push({ name: this.createRouteName })
+    },
     showConfirmRemoveDialog (item, idKey, lable) {
       if (idKey) {
         this.removeIdKey = idKey
@@ -174,20 +172,6 @@ export default {
       this.clearDara()
       this.refreshPagination()
       this.getData(this.api, pagination.page)
-    },
-    getValidChainedObject (object, keys) {
-      if (keys.length === 1) {
-        if (typeof object[keys[0]] !== 'undefined' && object[keys[0]] !== null) {
-          return object[keys[0]]
-        }
-        return false
-      }
-
-      if (typeof object[keys[0]] !== 'undefined' && object[keys[0]] !== null) {
-        return this.getValidChainedObject(object[keys[0]], keys.splice(1))
-      }
-
-      return (typeof object[keys[0]] !== 'undefined' && object[keys[0]] !== null)
     },
     refreshPagination () {
       this.tableData.pagination = {
@@ -222,16 +206,10 @@ export default {
         .then((response) => {
           that.loading = false
 
-          const dataaa = that.getValidChainedObject(response.data, that.tableKeys.data.split('.'))
-          that.tableData.data = dataaa
-          that.tableData.pagination.rowsNumber = that.getValidChainedObject(response.data, that.tableKeys.total.split('.'))
-          that.tableData.pagination.page = that.getValidChainedObject(response.data, that.tableKeys.currentPage.split('.'))
-          that.tableData.pagination.rowsPerPage = that.getValidChainedObject(response.data, that.tableKeys.perPage.split('.'))
-
-          // that.app.set(that.tableData, 'data', that.getValidChainedObject(response.data, that.tableKeys.data.split('.')))
-          // that.app.set(that.tableData.pagination, 'rowsNumber', that.getValidChainedObject(response.data, that.tableKeys.total.split('.')))
-          // that.app.set(that.tableData.pagination, 'page', that.getValidChainedObject(response.data, that.tableKeys.currentPage.split('.')))
-          // that.app.set(that.tableData.pagination, 'rowsPerPage', that.getValidChainedObject(response.data, that.tableKeys.perPage.split('.')))
+          that.tableData.data = that.getValidChainedObject(response.data, that.tableKeys.data)
+          that.tableData.pagination.rowsNumber = that.getValidChainedObject(response.data, that.tableKeys.total)
+          that.tableData.pagination.page = that.getValidChainedObject(response.data, that.tableKeys.currentPage)
+          that.tableData.pagination.rowsPerPage = that.getValidChainedObject(response.data, that.tableKeys.perPage)
 
           that.$emit('onPageChanged', response)
         })
@@ -243,13 +221,18 @@ export default {
     createParams (page) {
       const params = {}
       this.inputData.forEach(item => {
-        if (typeof item.name !== 'undefined' && item.name !== null) {
+        if (
+          typeof item.name !== 'undefined' &&
+          item.name !== null &&
+          typeof item.value !== 'undefined' &&
+          item.value !== null
+        ) {
           params[item.name] = item.value
         }
       })
 
       if (typeof page !== 'undefined') {
-        params[this.tableData.pagination.pageKey] = page
+        params[this.tableKeys.pageKey] = page
       }
 
       return params

@@ -100,7 +100,7 @@
 export default {
   name: 'Login',
   created () {
-    console.log('process.env.VUE_APP_LUMEN_INTERNAL_API_SERVER', process.env.VUE_APP_LUMEN_INTERNAL_API_SERVER)
+
   },
   data: function () {
     return {

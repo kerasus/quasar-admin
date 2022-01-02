@@ -10,7 +10,7 @@ export function login (context, data) {
       .then((response) => {
         const user = response.data.data.user,
           token = response.data.data.access_token,
-          tokenType = 'Bearer',
+          tokenType = response.data.data.token_type,
           tokenExpiresAt = response.data.data.token_expires_at
         context.commit('updateUser', user)
         context.commit('updateToken', token)

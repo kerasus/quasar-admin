@@ -1,10 +1,10 @@
 <template>
   <div>
-    <q-input filled @input="change($event)" v-model="outputText" dir="ltr" readonly >
-      <template v-if="canShowDate" v-slot:prepend>
+    <q-input v-model="outputText" filled dir="ltr" readonly :disable="disable">
+      <template v-if="canShowDate" #prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-date v-model="inputData" calendar="persian" :mask="mask" :range="range" :multiple="multiple">
+            <q-date v-model="inputData" :calendar="calendar" :mask="mask" :range="range" :multiple="multiple" :disable="disable" @update:model-value="change($event)">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="بستن" color="primary" flat />
               </div>
@@ -12,10 +12,10 @@
           </q-popup-proxy>
         </q-icon>
       </template>
-      <template v-if="canShowTime" v-slot:append>
+      <template v-if="canShowTime" #append>
         <q-icon name="access_time" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-time v-model="inputData" :mask="mask" format24h>
+            <q-time v-model="inputData" :mask="mask" format24h :disable="disable" @update:model-value="change($event)">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="بستن" color="primary" flat />
               </div>
@@ -28,33 +28,28 @@
 </template>
 
 <script>
-import inputMixin from 'components/FormBuiler/inputMixin'
+import moment from 'moment-jalaali'
+import inputMixin from 'components/FormBuilder/inputMixin'
 export default {
   name: 'FormBuilderDateTime',
+  mixins: [inputMixin],
   props: {
     value: {
       default: '',
       type: [String, Array]
     },
-    time: {
-      default: false,
-      type: Boolean
-    },
-    range: {
-      default: false,
-      type: Boolean
-    },
-    multiple: {
-      default: false,
-      type: Boolean
+    calendar: {
+      default: 'persian',
+      type: String
     }
   },
+  emits: ['update:value'],
   computed: {
     canShowTime () {
-      return (!this.range && !this.multiple)
+      return (!this.range && !this.multiple) && this.time
     },
     canShowDate () {
-      return (!this.time)
+      return !this.time
     },
     mask () {
       if (this.canShowTime && this.canShowDate) {
@@ -86,10 +81,28 @@ export default {
       return this.inputData
     }
   },
-  methods: {
-
+  watch: {
+    value () {
+      if (this.calendar === 'persian') {
+        this.inputData = this.miladiToShamsiDate(this.inputData)
+      }
+    }
   },
-  mixins: [inputMixin]
+  methods: {
+    change (val) {
+      let date = val
+      if (this.calendar === 'persian') {
+        date = this.shamsiToMiladiDate(val)
+      }
+      this.$emit('update:value', date)
+    },
+    miladiToShamsiDate (date) {
+      return moment(new Date(date)).format('jYYYY/jMM/jDD')
+    },
+    shamsiToMiladiDate (date) {
+      return moment(date, 'jYYYY/jMM/jDD').format('YYYY-MM-DD')
+    }
+  }
 }
 </script>
 

@@ -5,6 +5,36 @@ const appLanguages = languages.filter(lang =>
 
 export default function () {
   return {
+    layoutView: 'lHh Lpr lFf',
+    layoutHeader: true,
+    layoutHeaderVisible: true,
+    layoutHeaderReveal: false,
+    layoutHeaderElevated: false,
+    layoutHeaderBordered: false,
+
+    layoutHeaderNavTabs: true,
+    layoutHeaderNavTabsModel: 1,
+
+    layoutLeftDrawer: true,
+    layoutLeftDrawerVisible: true,
+    layoutLeftDrawerBehavior: 'default',
+    layoutLeftDrawerOverlay: false,
+    layoutLeftDrawerElevated: false,
+    layoutLeftDrawerBordered: false,
+
+    layoutRightDrawer: true,
+    layoutRightDrawerVisible: true,
+    layoutRightDrawerBehavior: 'default',
+    layoutRightDrawerOverlay: false,
+    layoutRightDrawerElevated: false,
+    layoutRightDrawerBordered: false,
+
+    layoutFooter: true,
+    layoutFooterVisible: true,
+    layoutFooterReveal: false,
+    layoutFooterElevated: false,
+    layoutFooterBordered: false,
+
     appName: 'app',
     headerTitle: 'app',
     headerWithBackground: false,
