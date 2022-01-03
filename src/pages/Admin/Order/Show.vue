@@ -80,13 +80,13 @@ export default {
         { type: 'input', name: 'profile_completion', responseKey: 'data.user.profile_completion', label: 'درصد تکمیل پروفایل', col: 'col-md-3' },
         { type: 'space', name: 'space', label: 'اطلاعات سفارش', col: 'col-md-12' },
         { type: 'input', name: 'id', responseKey: 'data.id', label: 'شناسه سفارش', col: 'col-md-3' },
-        { type: 'input', name: 'orderstatus', responseKey: 'data.orderstatus.name', value: 'null', label: 'وضعیت سفارش', col: 'col-md-3' },
-        { type: 'input', name: 'paymentstatus', responseKey: 'data.paymentstatus.name', value: 'null', label: 'وضعیت پرداخت', col: 'col-md-3' },
-        { type: 'input', name: 'price', responseKey: 'data.price', value: 'null', label: 'مبلغ(تومان)', col: 'col-md-3' },
-        { type: 'input', name: 'paid_price', responseKey: 'data.paid_price', value: 'null', label: 'مبلغ پرداخت شده(تومان)', col: 'col-md-3' },
-        { type: 'input', name: 'discount', responseKey: 'data.discount', value: 'null', label: 'مبلغ تخفیف (تومان)', col: 'col-md-3' },
-        { type: 'input', name: 'completed_at', responseKey: 'data.completed_at', value: 'null', label: 'تاریخ تکمیل', col: 'col-md-3' },
-        { type: 'hidden', name: 'orderproducts', responseKey: 'data.orderproducts', value: 'null', label: 'تاریخ تکمیل', col: 'col-md-3' }
+        { type: 'input', name: 'orderstatus', responseKey: 'data.orderstatus.name', label: 'وضعیت سفارش', col: 'col-md-3' },
+        { type: 'input', name: 'paymentstatus', responseKey: 'data.paymentstatus.name', label: 'وضعیت پرداخت', col: 'col-md-3' },
+        { type: 'input', name: 'price', responseKey: 'data.price', label: 'مبلغ(تومان)', col: 'col-md-3' },
+        { type: 'input', name: 'paid_price', responseKey: 'data.paid_price', label: 'مبلغ پرداخت شده(تومان)', col: 'col-md-3' },
+        { type: 'input', name: 'discount', responseKey: 'data.discount', label: 'مبلغ تخفیف (تومان)', col: 'col-md-3' },
+        { type: 'input', name: 'completed_at', responseKey: 'data.completed_at', label: 'تاریخ تکمیل', col: 'col-md-3' },
+        { type: 'hidden', name: 'orderproducts', responseKey: 'data.orderproducts', label: 'تاریخ تکمیل', col: 'col-md-3' }
       ],
       orderproducts: []
     }
