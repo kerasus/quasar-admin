@@ -15,7 +15,7 @@ export default function () {
     layoutHeaderNavTabs: true,
     layoutHeaderNavTabsModel: 1,
 
-    layoutLeftDrawer: true,
+    layoutLeftDrawer: false,
     layoutLeftDrawerVisible: true,
     layoutLeftDrawerBehavior: 'default',
     layoutLeftDrawerOverlay: false,

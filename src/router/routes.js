@@ -41,6 +41,16 @@ const routes = [
             ]
           },
           {
+            path: 'contents',
+            component: () => import('pages/Admin/index'),
+            children: [
+              { name: 'Admin.Content.Index', path: '', component: () => import('pages/Admin/Content/Index') },
+              { name: 'Admin.Content.Create', path: 'create', component: () => import('pages/Admin/Content/Create') },
+              { name: 'Admin.Content.Show', path: ':id', component: () => import('pages/Admin/Content/Show') },
+              { name: 'Admin.Content.Edit', path: ':id/edit', component: () => import('pages/Admin/Content/Edit') }
+            ]
+          },
+          {
             path: 'orders',
             component: () => import('pages/Admin/index'),
             children: [
