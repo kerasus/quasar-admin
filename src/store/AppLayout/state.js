@@ -22,8 +22,8 @@ export default function () {
     layoutLeftDrawerElevated: false,
     layoutLeftDrawerBordered: false,
 
-    layoutRightDrawer: true,
-    layoutRightDrawerVisible: true,
+    layoutRightDrawer: false,
+    layoutRightDrawerVisible: false,
     layoutRightDrawerBehavior: 'default',
     layoutRightDrawerOverlay: false,
     layoutRightDrawerElevated: false,
