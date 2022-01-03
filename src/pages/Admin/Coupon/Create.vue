@@ -19,7 +19,7 @@ export default {
   data () {
     return {
       inputs: [],
-      api: '',
+      api: '/v2/admin/coupon',
       entityIdKeyInResponse: '',
       showRouteParamKey: '',
       indexRouteName: '',
