@@ -24,6 +24,7 @@
               v-for="orderproduct in orderproducts"
               :key="orderproduct.id"
               class="col-md-3"
+              @click="showProduct(orderproduct.id)"
             >
               <q-card>
                 <q-img :src="orderproduct.product.photo">
@@ -98,6 +99,10 @@ export default {
     afterLoadInputData () {
       const orderproductsIndex = this.inputs.findIndex(item => item.name === 'orderproducts')
       this.orderproducts = this.inputs[orderproductsIndex].value
+    },
+    showProduct (id) {
+      console.log('id', id)
+      // this.$router.push({ name: 'Admin.Product.Show', params: { id: id } })
     }
   }
 }
