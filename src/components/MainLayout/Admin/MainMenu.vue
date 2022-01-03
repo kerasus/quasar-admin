@@ -62,6 +62,11 @@ export default {
           routeName: 'Admin.User.Index'
         },
         {
+          title: 'محتوا',
+          icon: 'local_library',
+          routeName: 'Admin.Content.Index'
+        },
+        {
           title: 'محصولات',
           icon: 'local_library',
           routeName: 'Admin.Product.Index'

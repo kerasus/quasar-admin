@@ -10,7 +10,7 @@
     >
       <template v-slot:table-cell="{inputData, showConfirmRemoveDialog}">
         <q-td :props="inputData.props">
-          <template v-if="inputData.props.col.name === 'avatar'">
+          <template v-if="inputData.props.col.name === 'photo'">
             <q-avatar>
               <q-img
                 :src="inputData.props.value"
@@ -70,11 +70,11 @@ export default {
             field: row => row.id
           },
           {
-            name: 'avatar',
+            name: 'photo',
             required: true,
             label: 'تصویر',
             align: 'left',
-            field: row => row.avatar
+            field: row => row.photo
           },
           {
             name: 'first_name',
@@ -91,11 +91,18 @@ export default {
             field: row => row.last_name
           },
           {
-            name: 'email',
+            name: 'phone_number',
             required: true,
-            label: 'ایمیل',
+            label: 'شماره همراه',
             align: 'left',
-            field: row => row.email
+            field: row => row.mobile
+          },
+          {
+            name: 'national_code',
+            required: true,
+            label: 'کد ملی',
+            align: 'left',
+            field: row => row.national_code
           },
           {
             name: 'actions',
