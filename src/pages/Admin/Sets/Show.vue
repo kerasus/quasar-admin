@@ -19,7 +19,7 @@ export default {
   data () {
     return {
       expanded: true,
-      api: '/alaa/api/v2/product',
+      api: '/alaa/api/v2/admin/product',
       entityIdKey: 'id',
       entityParamKey: 'id',
       editRouteName: 'Admin.Product.Edit',

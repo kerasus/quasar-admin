@@ -23,7 +23,11 @@ export default store(function (/* { ssrContext } */) {
     // enable strict mode (adds overhead!)
     // for dev mode only
     strict: process.env.DEBUGGING,
-    plugins: [createPersistedState()]
+    plugins: [
+      createPersistedState({
+        storage: window.localStorage,
+        paths: ['Auth.accessToken', 'Auth.user']
+      })]
   })
 
   return Store

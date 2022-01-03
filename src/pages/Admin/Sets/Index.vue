@@ -2,11 +2,11 @@
   <div>
     <entity-index
       v-model:value="inputs"
-      title="لیست سفارشات"
+      title="لیست محصولات"
       :api="api"
       :table="table"
       :table-keys="tableKeys"
-      :create-route-name="'Admin.Order.Create'"
+      :create-route-name="'Admin.User.Create'"
     >
       <template v-slot:table-cell="{inputData, showConfirmRemoveDialog}">
         <q-td :props="inputData.props">
@@ -19,7 +19,7 @@
             />
           </template>
           <template v-else-if="inputData.props.col.name === 'actions'">
-            <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Order.Show', params: {id: inputData.props.row.id}}">
+            <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Product.Show', params: {id: inputData.props.row.id}}">
               <q-tooltip>
                 مشاهده
               </q-tooltip>
@@ -51,7 +51,7 @@ export default {
       model: null,
       tags: [],
       expanded: true,
-      api: '/alaa/api/v2/admin/order',
+      api: '/alaa/api/v2/admin/product',
       tableKeys: {
         data: 'data',
         total: 'meta.total',
@@ -69,60 +69,46 @@ export default {
             field: row => row.id
           },
           {
-            name: 'first_name',
+            name: 'photo',
             required: true,
-            label: 'نام',
+            label: 'تصویر',
             align: 'left',
-            field: row => row.user.first_name
+            field: row => row.photo
           },
           {
-            name: 'first_name',
+            name: 'title',
             required: true,
-            label: 'نام خانوادگی',
+            label: 'عنوان',
             align: 'left',
-            field: row => row.user.last_name
+            field: row => row.title
           },
           {
-            name: 'mobile',
+            name: 'product_type',
             required: true,
-            label: 'موبایل',
+            label: 'نوع',
             align: 'left',
-            field: row => row.user.mobile
+            field: row => row.product_type.display_name
           },
           {
-            name: 'national_code',
+            name: 'attribute_set',
             required: true,
-            label: 'کدملی',
+            label: 'دسته',
             align: 'left',
-            field: row => row.user.national_code
+            field: row => row.attribute_set.name
           },
           {
-            name: 'price',
+            name: 'enable',
             required: true,
-            label: 'مبلغ(تومان)',
+            label: 'فعال',
             align: 'left',
-            field: row => row.price
+            field: row => (row.enable) ? 'فعال' : 'غیرفعال'
           },
           {
-            name: 'paid_price',
+            name: 'is_free',
             required: true,
-            label: 'پرداخت شده(تومان)',
+            label: 'فعال',
             align: 'left',
-            field: row => row.price
-          },
-          {
-            name: 'orderstatus',
-            required: true,
-            label: 'وضعیت سفارش',
-            align: 'left',
-            field: row => row.orderstatus.name
-          },
-          {
-            name: 'paymentstatus',
-            required: true,
-            label: 'وضعیت پرداخت',
-            align: 'left',
-            field: row => row.paymentstatus.name
+            field: row => (row.is_free) ? 'رایگان' : 'پولی'
           },
           {
             name: 'actions',
@@ -137,17 +123,15 @@ export default {
       inputs: [
         { type: 'input', name: 'id', value: null, label: 'شناسه', col: 'col-md-3' },
         { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'نام خانوادگی', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'شماره موبایل', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'کدملی', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'استان', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'شهر', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'کد پستی', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'آدرس', col: 'col-md-9' },
-        { type: 'input', name: 'name', value: null, label: 'مدرسه', col: 'col-md-3' },
-        { type: 'date', name: 'created_at_range', value: null, label: 'تاریخ ثبت اولیه', col: 'col-md-4' },
-        { type: 'date', name: 'created_at_range', value: null, label: 'تاریخ اصلاح مدیریتی', col: 'col-md-4' },
-        { type: 'date', name: 'created_at_range', value: null, label: 'تاریخ نهایی', col: 'col-md-4' }
+        { type: 'input', name: 'short_description', value: null, label: 'توضیحات کوتاه', col: 'col-md-3' },
+        { type: 'input', name: 'long_description', value: null, label: 'توضیحات اجمالی', col: 'col-md-3' },
+        { type: 'select', name: 'product_type_id', value: null, options: [{ label: 'ساده', value: 1 }, { label: 'قابل پیکربندی', value: 2 }, { label: 'قابل انتخاب', value: 3 }, { label: 'اشتراک', value: 4 }], label: 'نوع محصول', col: 'col-md-3' },
+        { type: 'select', name: 'is_free', value: null, options: [{ label: 'رایگان', value: 1 }, { label: 'غیر رایگان', value: 0 }], label: 'وضعیت رایگان / غیر رایگان', col: 'col-md-3' },
+        { type: 'select', name: 'enable', value: null, options: [{ label: 'فعال', value: 1 }, { label: 'غیرفعال', value: 0 }], label: 'وضعیت فعال / غیرفعال', col: 'col-md-3' },
+        { type: 'select', name: 'display', value: null, options: [{ label: 'نمایش', value: 1 }, { label: 'عدم نمایش', value: 0 }], label: 'وضعیت نمایش / عدم نمایش', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-4' },
+        { type: 'input', name: 'attribute_set_id', value: null, label: 'کد دسته', col: 'col-md-4' },
+        { type: 'dateRange', name: 'created_at_range', value: [], label: 'بازه تاریخ ایجاد', col: 'col-md-4' }
       ]
     }
   },
