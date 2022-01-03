@@ -23,7 +23,7 @@ export default {
         total: 'meta.total',
         currentPage: 'meta.current_page',
         perPage: 'meta.per_page',
-        pageKey: 'page'
+        pageKey: 'couponPage'
       },
       inputs: [
         {

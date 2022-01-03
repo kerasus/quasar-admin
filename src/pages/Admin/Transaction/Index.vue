@@ -51,7 +51,7 @@ export default {
       model: null,
       tags: [],
       expanded: true,
-      api: '/alaa/api/v2/admin/order',
+      api: '/alaa/api/v2/admin/transaction',
       tableKeys: {
         data: 'data',
         total: 'meta.total',
@@ -87,14 +87,26 @@ export default {
             required: true,
             label: 'نوع',
             align: 'left',
-            field: row => row.product_type.display_name
+            field: row => {
+              if (row.product_type) {
+                return row.product_type.display_name
+              } else {
+                return ''
+              }
+            }
           },
           {
             name: 'attribute_set',
             required: true,
             label: 'دسته',
             align: 'left',
-            field: row => row.attribute_set.name
+            field: row => {
+              if (row.attribute_set) {
+                return row.attribute_set.name
+              } else {
+                return ''
+              }
+            }
           },
           {
             name: 'enable',
