@@ -114,13 +114,11 @@ export default {
         data: []
       },
       inputs: [
-        { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-6' },
-        { type: 'input', name: 'shortName', value: null, label: 'نام کوتاه', col: 'col-md-6' },
-        { type: 'select', name: 'product_type_id', value: null, options: [{ label: 'فعال ', value: 1 }, { label: 'غیرفعال', value: 2 }, { label: 'اشتراک', value: 4 }], label: 'فعال/غیرفعال', col: 'col-md-6' },
-        { type: 'select', name: 'product_type_id', value: null, options: [{ label: 'نمایش ', value: 1 }, { label: 'عدم نمایش', value: 2 }, { label: 'اشتراک', value: 4 }], label: 'وضعیت نمایش / عدم نمایش', col: 'col-md-6' }
         { type: 'input', name: 'id', value: null, label: 'شناسه', col: 'col-md-4' },
         { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-4' },
-        { type: 'select', name: 'product_type_id', value: null, options: [{ label: 'فعال', value: 2 }, { label: 'غیر فعال', value: 3 }], label: 'وضعیت', col: 'col-md-4' }
+        { type: 'input', name: 'shortName', value: null, label: 'نام کوتاه', col: 'col-md-6' },
+        { type: 'select', name: 'product_type_id', value: null, options: [{ label: 'فعال ', value: 1 }, { label: 'غیرفعال', value: 2 }], label: 'وضعیت', col: 'col-md-4' },
+        { type: 'select', name: 'product_type_id', value: null, options: [{ label: 'نمایش ', value: 1 }, { label: 'عدم نمایش', value: 2 }, { label: 'اشتراک', value: 4 }], label: 'وضعیت نمایش / عدم نمایش', col: 'col-md-6' }
       ]
     }
   },
