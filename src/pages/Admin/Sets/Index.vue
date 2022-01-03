@@ -19,7 +19,7 @@
             />
           </template>
           <template v-else-if="inputData.props.col.name === 'actions'">
-            <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Product.Show', params: {id: inputData.props.row.id}}">
+            <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Set.Show', params: {id: inputData.props.row.id}}">
               <q-tooltip>
                 مشاهده
               </q-tooltip>
@@ -51,13 +51,13 @@ export default {
       model: null,
       tags: [],
       expanded: true,
-      api: '/alaa/api/v2/admin/product',
+      api: '/alaa/api/v2/admin/set',
       tableKeys: {
         data: 'data',
         total: 'meta.total',
         currentPage: 'meta.current_page',
         perPage: 'meta.per_page',
-        pageKey: 'productPage'
+        pageKey: 'setPage'
       },
       table: {
         columns: [
@@ -69,46 +69,18 @@ export default {
             field: row => row.id
           },
           {
-            name: 'photo',
+            name: 'name',
             required: true,
-            label: 'تصویر',
+            label: 'نام',
             align: 'left',
-            field: row => row.photo
-          },
-          {
-            name: 'title',
-            required: true,
-            label: 'عنوان',
-            align: 'left',
-            field: row => row.title
-          },
-          {
-            name: 'product_type',
-            required: true,
-            label: 'نوع',
-            align: 'left',
-            field: row => row.product_type.display_name
-          },
-          {
-            name: 'attribute_set',
-            required: true,
-            label: 'دسته',
-            align: 'left',
-            field: row => row.attribute_set.name
+            field: row => row.name
           },
           {
             name: 'enable',
             required: true,
-            label: 'فعال',
+            label: 'وضعیت',
             align: 'left',
-            field: row => (row.enable) ? 'فعال' : 'غیرفعال'
-          },
-          {
-            name: 'is_free',
-            required: true,
-            label: 'فعال',
-            align: 'left',
-            field: row => (row.is_free) ? 'رایگان' : 'پولی'
+            field: row => (row.enable) ? 'فعال' : 'غیر فعال'
           },
           {
             name: 'actions',
@@ -121,17 +93,9 @@ export default {
         data: []
       },
       inputs: [
-        { type: 'input', name: 'id', value: null, label: 'شناسه', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-3' },
-        { type: 'input', name: 'short_description', value: null, label: 'توضیحات کوتاه', col: 'col-md-3' },
-        { type: 'input', name: 'long_description', value: null, label: 'توضیحات اجمالی', col: 'col-md-3' },
-        { type: 'select', name: 'product_type_id', value: null, options: [{ label: 'ساده', value: 1 }, { label: 'قابل پیکربندی', value: 2 }, { label: 'قابل انتخاب', value: 3 }, { label: 'اشتراک', value: 4 }], label: 'نوع محصول', col: 'col-md-3' },
-        { type: 'select', name: 'is_free', value: null, options: [{ label: 'رایگان', value: 1 }, { label: 'غیر رایگان', value: 0 }], label: 'وضعیت رایگان / غیر رایگان', col: 'col-md-3' },
-        { type: 'select', name: 'enable', value: null, options: [{ label: 'فعال', value: 1 }, { label: 'غیرفعال', value: 0 }], label: 'وضعیت فعال / غیرفعال', col: 'col-md-3' },
-        { type: 'select', name: 'display', value: null, options: [{ label: 'نمایش', value: 1 }, { label: 'عدم نمایش', value: 0 }], label: 'وضعیت نمایش / عدم نمایش', col: 'col-md-3' },
+        { type: 'input', name: 'id', value: null, label: 'شناسه', col: 'col-md-4' },
         { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-4' },
-        { type: 'input', name: 'attribute_set_id', value: null, label: 'کد دسته', col: 'col-md-4' },
-        { type: 'dateRange', name: 'created_at_range', value: [], label: 'بازه تاریخ ایجاد', col: 'col-md-4' }
+        { type: 'select', name: 'product_type_id', value: null, options: [{ label: 'فعال', value: 2 }, { label: 'غیر فعال', value: 3 }], label: 'وضعیت', col: 'col-md-4' }
       ]
     }
   },

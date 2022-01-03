@@ -1,21 +1,4 @@
 <template>
-  <portlet v-model:value="filterInputs">
-    <template #title>
-      جدول فیلتر
-    </template>
-    <template #toolbar>
-      <q-btn flat round icon="add">
-        <q-tooltip>
-          اضافه کردن
-        </q-tooltip>
-      </q-btn>
-    </template>
-    <template #content>
-      <q-card class="category-card">
-        <form-builder v-model:value="filterInputs"/>
-      </q-card>
-    </template>
-  </portlet>
   <entity-index
     v-model:value="inputs"
     title="لیست بن ها"
@@ -27,15 +10,22 @@
 </template>
 
 <script>
-import { EntityIndex, Portlet } from 'quasar-crud'
-import { FormBuilder } from 'quasar-form-builder'
+import { EntityIndex } from 'quasar-crud'
 
 export default {
   name: 'Index',
-  components: { EntityIndex, Portlet, FormBuilder },
+  components: { EntityIndex },
   data () {
     return {
-      filterInputs: [
+      api: '/alaa/api/v2/admin/coupon',
+      tableKeys: {
+        data: 'data',
+        total: 'meta.total',
+        currentPage: 'meta.current_page',
+        perPage: 'meta.per_page',
+        pageKey: 'couponPage'
+      },
+      inputs: [
         {
           type: 'Select',
           name: 'type',
@@ -58,12 +48,8 @@ export default {
           ],
           optionValue: 'id',
           optionLabel: 'value'
-        }
-      ],
-      inputs: [],
-      api: 'v2/admin/coupon',
+        }],
       table: [],
-      tableKeys: [],
       createRouteName: 'Admin.Coupon.Create'
     }
   }

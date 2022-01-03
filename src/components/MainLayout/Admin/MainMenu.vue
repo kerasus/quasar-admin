@@ -72,14 +72,9 @@ export default {
           routeName: 'Admin.Coupon.Index'
         },
         {
-          title: 'محتوا',
-          icon: 'local_library',
-          routeName: 'Admin.Transaction.Index'
-        },
-        {
           title: 'دسته محتوا',
           icon: 'local_library',
-          routeName: 'Admin.Transaction.Index'
+          routeName: 'Admin.Set.Index'
         },
         {
           title: 'تنظیمات',

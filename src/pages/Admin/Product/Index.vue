@@ -48,9 +48,6 @@ export default {
   components: { EntityIndex },
   data () {
     return {
-      model: null,
-      tags: [],
-      expanded: true,
       api: '/alaa/api/v2/admin/product',
       tableKeys: {
         data: 'data',
@@ -136,28 +133,6 @@ export default {
     }
   },
   methods: {
-    createValue (val, done) {
-      // Calling done(var) when new-value-mode is not set or "add", or done(var, "add") adds "var" content to the model
-      // and it resets the input textbox to empty string
-      // ----
-      // Calling done(var) when new-value-mode is "add-unique", or done(var, "add-unique") adds "var" content to the model
-      // only if is not already set
-      // and it resets the input textbox to empty string
-      // ----
-      // Calling done(var) when new-value-mode is "toggle", or done(var, "toggle") toggles the model with "var" content
-      // (adds to model if not already in the model, removes from model if already has it)
-      // and it resets the input textbox to empty string
-      // ----
-      // If "var" content is undefined/null, then it doesn't tampers with the model
-      // and only resets the input textbox to empty string
-
-      if (val.length > 0) {
-        if (!this.tags.includes(val)) {
-          this.tags.push(val)
-        }
-        done(val, 'toggle')
-      }
-    },
     getRemoveMessage (row) {
       const firstName = row.first_name
       const lastName = row.last_name
