@@ -26,7 +26,7 @@ export default store(function (/* { ssrContext } */) {
     plugins: [
       createPersistedState({
         storage: window.localStorage,
-        paths: ['Auth.accessToken', 'Auth.user']
+        paths: ['Auth.accessToken', 'Auth.tokenType', 'Auth.user']
       })]
   })
 
