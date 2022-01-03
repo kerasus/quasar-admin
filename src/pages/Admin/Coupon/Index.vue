@@ -1,5 +1,5 @@
 <template>
-  <portlet>
+  <portlet v-model:value="filterInputs">
     <template #title>
       جدول فیلتر
     </template>
@@ -28,14 +28,37 @@
 
 <script>
 import { EntityIndex, Portlet } from 'quasar-crud'
+import { FormBuilder } from 'quasar-form-builder'
 
 export default {
   name: 'Index',
-  components: { EntityIndex, Portlet },
+  components: { EntityIndex, Portlet, FormBuilder },
   data () {
     return {
       filterInputs: [
-        { type: 'Input' }
+        {
+          type: 'Select',
+          name: 'type',
+          responseKey: '',
+          label: ' نام کالایی که از خرید آن بن دریافت کرده است',
+          col: 'col-md-6',
+          options: [],
+          optionValue: '',
+          optionLabel: ''
+        },
+        {
+          type: 'Select',
+          name: 'couponStatus',
+          label: ' وضعیت بن',
+          col: 'col-md-6',
+          options: [
+            { id: '', value: 'فعال' },
+            { id: '', value: 'باطل شده' },
+            { id: '', value: 'استفاده شده' }
+          ],
+          optionValue: 'id',
+          optionLabel: 'value'
+        }
       ],
       inputs: [],
       api: 'v2/admin/coupon',
