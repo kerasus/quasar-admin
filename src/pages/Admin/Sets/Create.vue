@@ -22,8 +22,8 @@ export default {
       api: '/reqres/api/users',
       entityIdKeyInResponse: 'id',
       showRouteParamKey: 'id',
-      showRouteName: 'Admin.User.Show',
-      indexRouteName: 'Admin.User.Index',
+      showRouteName: 'Admin.Set.Show',
+      indexRouteName: 'Admin.Set.Index',
       inputs: [
         { type: 'input', name: 'name', responseKey: 'data.name', value: '', label: 'نام', col: 'col-md-6' },
         { type: 'input', name: 'job', responseKey: 'data.job', value: '', label: 'شغل', col: 'col-md-6' }

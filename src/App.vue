@@ -5,7 +5,6 @@
 </template>
 <script>
 // import VuePageTransition from 'vue-page-transition'
-import axios from 'axios'
 import { AddressbarColor } from 'quasar'
 // import Vue from 'vue'
 //
