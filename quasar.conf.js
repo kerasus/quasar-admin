@@ -8,6 +8,7 @@
 
 /* eslint-env node */
 const ESLintPlugin = require('eslint-webpack-plugin')
+const path = require('path')
 
 const config = {
   // https://v2.quasar.dev/quasar-cli/supporting-ts
@@ -69,6 +70,14 @@ const config = {
     chainWebpack (chain) {
       chain.plugin('eslint-webpack-plugin')
         .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
+    },
+    extendWebpack (cfg, { isServer, isClient }) {
+      cfg.resolve.alias = {
+        ...cfg.resolve.alias, // This adds the existing alias
+
+        // This will make sure that the hosting test app is pointing to only one instance of vue.
+        vue: path.resolve('./node_modules/vue')
+      }
     }
   },
 
@@ -239,7 +248,8 @@ function setProxy (proxy, key, target) {
 
 setProxy(config.devServer.proxy, '/reqres/api', 'https://reqres.in/api')
 // setProxy(config.devServer.proxy, '/alaa/api/v2', 'https://alaatv.com/api/v2')
-setProxy(config.devServer.proxy, '/alaa/api/v2', 'http://alaatv.test/api/v2')
+setProxy(config.devServer.proxy, '/alaa/web', 'https://office.alaatv.com:700')
+setProxy(config.devServer.proxy, '/alaa/api/v2', 'https://office.alaatv.com:700/api/v2')
 
 module.exports = function (ctx) {
   // https://v2.quasar.dev/quasar-cli/developing-ssr/configuring-ssr

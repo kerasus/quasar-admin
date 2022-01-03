@@ -28,7 +28,6 @@ export function login2 (context, data) {
   })
 }
 export function login (context, data) {
-  console.log(API_ADDRESS.auth.login)
   return axios.post(API_ADDRESS.auth.login, data)
     .then(res => {
       const accessToken = res.data.data.access_token
@@ -42,4 +41,5 @@ export function logout (context) {
   context.commit('updateUser', null)
   context.commit('updateToken', null)
   context.commit('updateTokenType', null)
+  context.commit('redirectToLogin')
 }

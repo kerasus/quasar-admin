@@ -42,24 +42,14 @@ export default {
     return {
       menuItems: [
         {
-          title: 'Inbox',
-          icon: 'inbox',
-          routeName: ''
-        },
-        {
-          title: 'Outbox',
-          icon: 'send',
-          routeName: ''
-        },
-        {
-          title: 'Trash',
-          icon: 'delete',
-          routeName: ''
-        },
-        {
           title: 'کاربران',
           icon: 'delete',
           routeName: 'Admin.User.Index'
+        },
+        {
+          title: 'محتوا',
+          icon: 'local_library',
+          routeName: 'Admin.Content.Index'
         },
         {
           title: 'محصولات',
@@ -67,21 +57,51 @@ export default {
           routeName: 'Admin.Product.Index'
         },
         {
-          title: 'بانک سوال',
-          icon: 'storage',
-          routeName: 'EntityIndex'
+          title: 'سفارشات',
+          icon: 'local_library',
+          routeName: 'Admin.Order.Index'
         },
         {
-          title: 'نمونه نمایش',
-          icon: 'storage',
-          routeName: 'EntityShoew'
+          title: 'تراکنش ها',
+          icon: 'local_library',
+          routeName: 'Admin.Transaction.Index'
+        },
+        {
+          title: 'کوپن ها',
+          icon: 'local_library',
+          routeName: 'Admin.Coupon.Index'
+        },
+        {
+          title: 'محتوا',
+          icon: 'local_library',
+          routeName: 'Admin.Transaction.Index'
+        },
+        {
+          title: 'دسته محتوا',
+          icon: 'local_library',
+          routeName: 'Admin.Transaction.Index'
+        },
+        {
+          title: 'تنظیمات',
+          icon: 'local_library',
+          routeName: 'Admin.Settings'
         }
+        // {
+        //   title: 'بانک سوال',
+        //   icon: 'storage',
+        //   routeName: 'EntityIndex'
+        // },
+        // {
+        //   title: 'نمونه نمایش',
+        //   icon: 'storage',
+        //   routeName: 'EntityShoew'
+        // }
       ]
     }
   },
   methods: {
     logout () {
-      this.$router.push({ name: 'login' })
+      this.$store.dispatch('Auth/logout')
     }
   }
 }

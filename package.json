@@ -1,23 +1,28 @@
 {
   "name": "quasar-admin-pannel",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "Quasar App",
+  "description": "Alaa admin app",
+  "productName": "Alaa",
   "author": "kerasus <aliesmaeeli20@gmail.com>",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "dev": "quasar dev",
+    "build": "quasar build",
+    "build:pwa": "quasar build -m pwa"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "moment-jalaali": "^0.9.2",
     "quasar": "^2.0.0",
+    "quasar-crud": "^0.1.5",
     "vue-i18n": "^9.0.0-beta.0",
     "vue-page-transition": "^0.2.2",
     "vuex": "^4.0.1",
-    "vuex-persistedstate": "^4.0.0-beta.3"
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",

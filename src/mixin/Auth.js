@@ -1,3 +1,4 @@
+// import axios from 'axios'
 const mixinAuth = {
   computed: {
     user: {
@@ -21,6 +22,7 @@ const mixinAuth = {
         })
     }
   }
+
 }
 
 export default mixinAuth

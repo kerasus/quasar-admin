@@ -62,12 +62,12 @@ export function layoutHeaderBordered (state) {
   return state.layoutHeaderBordered
 }
 
-export function layoutHeaderNacTabs (state) {
-  return state.layoutHeaderNacTabs
+export function layoutHeaderNavTabs (state) {
+  return state.layoutHeaderNavTabs
 }
 
-export function layoutHeaderNacTabsModel (state) {
-  return state.layoutHeaderNacTabsModel
+export function layoutHeaderNavTabsModel (state) {
+  return state.layoutHeaderNavTabsModel
 }
 
 export function layoutLeftDrawer (state) {

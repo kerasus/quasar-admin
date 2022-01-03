@@ -1,7 +1,7 @@
 <template>
   <div>
     <entity-index
-      v-model="inputs"
+      v-model:value="inputs"
       title="لیست کاربران"
       :api="api"
       :table="table"
@@ -10,7 +10,7 @@
     >
       <template v-slot:table-cell="{inputData, showConfirmRemoveDialog}">
         <q-td :props="inputData.props">
-          <template v-if="inputData.props.col.name === 'avatar'">
+          <template v-if="inputData.props.col.name === 'photo'">
             <q-avatar>
               <q-img
                 :src="inputData.props.value"
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import EntityIndex from 'components/Entity/Index/EntityIndex'
+import { EntityIndex } from 'quasar-crud'
 
 export default {
   name: 'Index',
@@ -51,7 +51,8 @@ export default {
   data () {
     return {
       expanded: true,
-      api: '/reqres/api/users',
+      // api: '/alaa/api/v2/admin/user',
+      api: '/alaa/api/v2/admin/user',
       tableKeys: {
         data: 'data',
         total: 'total',
@@ -69,11 +70,11 @@ export default {
             field: row => row.id
           },
           {
-            name: 'avatar',
+            name: 'photo',
             required: true,
             label: 'تصویر',
             align: 'left',
-            field: row => row.avatar
+            field: row => row.photo
           },
           {
             name: 'first_name',
@@ -88,6 +89,20 @@ export default {
             label: 'نام خانوادگی',
             align: 'left',
             field: row => row.last_name
+          },
+          {
+            name: 'phone_number',
+            required: true,
+            label: 'شماره همراه',
+            align: 'left',
+            field: row => row.mobile
+          },
+          {
+            name: 'national_code',
+            required: true,
+            label: 'کد ملی',
+            align: 'left',
+            field: row => row.national_code
           },
           {
             name: 'email',
@@ -109,9 +124,11 @@ export default {
       inputs: [
         { type: 'input', name: 'id', value: null, label: 'شناسه', col: 'col-md-3' },
         { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-3' },
-        { type: 'select', name: 'gender', value: null, options: ['Male', 'Female'], label: 'جنسیت', col: 'col-md-3' },
-        { type: 'select', name: 'status', value: null, options: ['Active', 'Inactive'], label: 'وضعیت', col: 'col-md-3' },
-        { type: 'dateRange', name: 'created_at_range', value: [], label: 'بازه تاریخ عضویت', col: 'col-md-6' }
+        { type: 'input', name: 'name', value: null, label: 'نام خانوادگی', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'کدملی', col: 'col-md-3' },
+        { type: 'select', name: 'gender', value: null, options: ['پسر', 'دختر'], label: 'جنسیت', col: 'col-md-4' },
+        { type: 'select', name: 'status', value: null, options: ['فعال', 'غیر فعال'], label: 'وضعیت', col: 'col-md-4' },
+        { type: 'dateRange', name: 'created_at_range', value: [], label: 'بازه تاریخ عضویت', col: 'col-md-4' }
       ]
     }
   },
