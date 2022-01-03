@@ -52,7 +52,7 @@ export default {
     return {
       expanded: true,
       // api: '/alaa/api/v2/admin/user',
-      api: '/reqres/api/users',
+      api: '/alaa/api/v2/admin/user',
       tableKeys: {
         data: 'data',
         total: 'total',
@@ -103,6 +103,13 @@ export default {
             label: 'کد ملی',
             align: 'left',
             field: row => row.national_code
+          },
+          {
+            name: 'email',
+            required: true,
+            label: 'ایمیل',
+            align: 'left',
+            field: row => row.email
           },
           {
             name: 'actions',
