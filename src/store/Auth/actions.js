@@ -1,7 +1,6 @@
 import axios from 'axios'
 import API_ADDRESS from 'src/api/Addresses'
-
-export function login (context, data) {
+export function login2 (context, data) {
   return new Promise((resolve, reject) => {
     axios.post(API_ADDRESS.auth.login, {
       mobile: data.username,
@@ -28,10 +27,18 @@ export function login (context, data) {
       })
   })
 }
-
+export function login (context, data) {
+  return axios.post(API_ADDRESS.auth.login, data)
+    .then(res => {
+      const accessToken = res.data.data.access_token
+      context.commit('updateAccessToken', accessToken)
+      context.commit('updateUser', res.data.data.user)
+      context.commit('setAccessToken', accessToken)
+    })
+}
 export function logout (context) {
-  axios.defaults.headers.common.Authorization = null
+  context.commit('updateAccessToken', null)
   context.commit('updateUser', null)
-  context.commit('updateToken', null)
   context.commit('updateTokenType', null)
+  context.commit('redirectToLogin')
 }

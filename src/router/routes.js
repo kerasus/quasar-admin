@@ -1,3 +1,4 @@
+import { auth } from './middleware/middleware'
 const routes = [
   {
     path: '/',
@@ -14,6 +15,9 @@ const routes = [
       {
         path: 'admin',
         component: () => import('layouts/MainLayout.vue'),
+        meta: {
+          middlewares: [auth]
+        },
         children: [
           { name: 'Admin.Settings', path: 'settings', component: () => import('pages/Admin/Settings') },
           {
@@ -55,12 +59,34 @@ const routes = [
               { name: 'Admin.Transaction.Show', path: ':id', component: () => import('pages/Admin/Transaction/Show') },
               { name: 'Admin.Transaction.Edit', path: ':id/edit', component: () => import('pages/Admin/Transaction/Edit') }
             ]
+          },
+          {
+            path: 'sets',
+            component: () => import('pages/Admin/index'),
+            children: [
+              { name: 'Admin.Product.Index', path: '', component: () => import('pages/Admin/Sets/Index') },
+              { name: 'Admin.Product.Create', path: 'create', component: () => import('pages/Admin/Sets/Create') },
+              { name: 'Admin.Product.Show', path: ':id', component: () => import('pages/Admin/Sets/Show') },
+              { name: 'Admin.Product.Edit', path: ':id/edit', component: () => import('pages/Admin/Sets/Edit') }]
+          },
+          {
+            path: 'coupon',
+            component: () => import('pages/Admin/index'),
+            children: [
+              { name: 'Admin.Coupon.Index', path: '', component: () => import('pages/Admin/Coupon/Index') },
+              { name: 'Admin.Coupon.Create', path: 'create', component: () => import('pages/Admin/Coupon/Create') },
+              { name: 'Admin.Coupon.Show', path: ':id', component: () => import('pages/Admin/Coupon/Show') },
+              { name: 'Admin.Coupon.Edit', path: ':id/edit', component: () => import('pages/Admin/Coupon/Edit') }
+            ]
           }
         ]
       },
       {
         path: '/',
         component: () => import('layouts/MainLayout.vue'),
+        meta: {
+          middlewares: [auth]
+        },
         children: [
           { name: 'home', path: '/', component: () => import('pages/Index') },
           // {
