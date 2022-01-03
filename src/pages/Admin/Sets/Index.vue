@@ -2,11 +2,11 @@
   <div>
     <entity-index
       v-model:value="inputs"
-      title="لیست محصولات"
+      title="مدیریت دسته های محتوا"
       :api="api"
       :table="table"
       :table-keys="tableKeys"
-      :create-route-name="'Admin.User.Create'"
+      :create-route-name="'Admin.Set.Create'"
     >
       <template v-slot:table-cell="{inputData, showConfirmRemoveDialog}">
         <q-td :props="inputData.props">
@@ -69,6 +69,13 @@ export default {
             field: row => row.id
           },
           {
+            name: 'photo',
+            required: true,
+            label: 'تصویر',
+            align: 'left',
+            field: row => row.photo
+          },
+          {
             name: 'name',
             required: true,
             label: 'نام',
@@ -76,16 +83,30 @@ export default {
             field: row => row.name
           },
           {
-            name: 'enable',
+            name: 'short_name',
+            required: true,
+            label: 'نام کوتاه',
+            align: 'left',
+            field: row => row.short_name
+          },
+          {
+            name: 'status',
             required: true,
             label: 'وضعیت',
             align: 'left',
-            field: row => (row.enable) ? 'فعال' : 'غیر فعال'
+            field: row => row.status
+          },
+          {
+            name: 'show',
+            required: true,
+            label: 'نمایش',
+            align: 'left',
+            field: row => row.show
           },
           {
             name: 'actions',
             required: true,
-            label: '',
+            label: 'عملیات',
             align: 'left',
             field: ''
           }
@@ -95,7 +116,9 @@ export default {
       inputs: [
         { type: 'input', name: 'id', value: null, label: 'شناسه', col: 'col-md-4' },
         { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-4' },
-        { type: 'select', name: 'product_type_id', value: null, options: [{ label: 'فعال', value: 2 }, { label: 'غیر فعال', value: 3 }], label: 'وضعیت', col: 'col-md-4' }
+        { type: 'input', name: 'shortName', value: null, label: 'نام کوتاه', col: 'col-md-6' },
+        { type: 'select', name: 'product_type_id', value: null, options: [{ label: 'فعال ', value: 1 }, { label: 'غیرفعال', value: 2 }], label: 'وضعیت', col: 'col-md-4' },
+        { type: 'select', name: 'product_type_id', value: null, options: [{ label: 'نمایش ', value: 1 }, { label: 'عدم نمایش', value: 2 }, { label: 'اشتراک', value: 4 }], label: 'وضعیت نمایش / عدم نمایش', col: 'col-md-6' }
       ]
     }
   },

@@ -71,7 +71,7 @@ const routes = [
             ]
           },
           {
-            path: 'sets',
+            path: 'set',
             component: () => import('pages/Admin/index'),
             children: [
               { name: 'Admin.Set.Index', path: '', component: () => import('pages/Admin/Sets/Index') },
