@@ -1,189 +1,102 @@
 <template>
-  <div class="row" style="height: 100vh;">
-    <div class="col justify-center items-center" style="display: flex;">
-      <q-card square class="shadow-24" style="width:400px;height:540px;">
-        <q-card-section class="bg-deep-purple-7">
-          <h4 class="text-h5 text-white q-my-md">{{ title }}</h4>
-        </q-card-section>
-        <q-card-section>
-          <q-fab
-            color="primary" @click="switchTypeForm"
-            icon="add"
-            class="absolute"
-            style="top: 0; right: 12px; transform: translateY(-50%);"
-          >
-            <q-tooltip>
-              ثبت نام
-            </q-tooltip>
-          </q-fab>
-          <q-form class="q-px-sm q-pt-xl">
+  <div id="q-app ">
+    <div class="row justify-center items-center fullscreen q-px-lg">
+      <div class="col-5" >
+        <q-card v-if="!userLogin" class="my-card q-mt-auto shadow-6">
+          <q-card-section class="row bg-blue-8 text-white justify-between">
+            <div class="row justify-center items-center text-h6">
+              <p class="q-ml-md q-mb-none">ورود</p>
+            </div>
+            <q-avatar>
+              <img src="img/alaa-logo.png" alt="logo">
+            </q-avatar>
+          </q-card-section>
+          <q-linear-progress v-if="loadingList" color="warning" class="q-mt-sm" />
+          <q-separator></q-separator>
+          <div class="q-pa-lg">
             <q-input
-              ref="username"
-              square
-              clearable
+              bottom-slots
+              color="blue-8"
+              ref="userName"
+              name="userName"
               v-model="username"
-              type="text"
-              lazy-rules
-              :rules="[this.required,this.isMobile,this.short]"
-              label="شماره همراه">
-              <template v-slot:prepend>
-                <q-icon name="username"/>
+              label="شماره همراه"
+              @keydown="getEnter"
+            >
+              <template v-slot:before>
+                <q-icon name="person"></q-icon>
               </template>
             </q-input>
             <q-input
-              ref="username"
-              v-if="register"
-              square
-              clearable
-              v-model="username"
-              lazy-rules
-              :rules="[this.required,this.short]"
-              type="username" label="نام کاربری">
-              <template v-slot:prepend>
-                <q-icon name="person"/>
+              color="blue-8"
+              bottom-slots
+              ref="pass"
+              name="pass"
+              v-model="password"
+              label="رمز"
+              @keydown="getEnter"
+              type="password">
+              <template v-slot:before>
+                <q-icon name="lock"></q-icon>
               </template>
             </q-input>
-            <q-input
-              ref="password"
-              square
-              clearable
-              v-model="password" :type="passwordFieldType"
-              lazy-rules
-              :rules="[this.required,this.short, this.isNationalCode]"
-              label="کد ملی">
-              <template v-slot:prepend>
-                <q-icon name="lock"/>
-              </template>
-              <template v-slot:append>
-                <q-icon
-                  :name="visibilityIcon" @click="switchVisibility" class="cursor-pointer"/>
-              </template>
-            </q-input>
-            <q-input
-              ref="repassword"
-              v-if="register"
-              square
-              clearable
-              v-model="repassword" :type="passwordFieldType"
-              lazy-rules
-              :rules="[this.required,this.short,this.diffPassword]"
-              label="رمز عبور را تکرار کنید">
-              <template v-slot:prepend>
-                <q-icon name="lock"/>
-              </template>
-              <template v-slot:append>
-                <q-icon
-                  :name="visibilityIcon" @click="switchVisibility" class="cursor-pointer"/>
-              </template>
-            </q-input>
-          </q-form>
-        </q-card-section>
-        <q-card-actions class="q-px-lg">
-          <q-btn
-            unelevated
-            size="lg"
-            color="secondary"
-            @click="submit"
-            class="full-width text-white" :label="btnLabel"/>
-        </q-card-actions>
-        <q-card-section
-          v-if="!register"
-          class="text-center q-pa-sm">
-          <p class="text-grey-6">رمز عبور خود را فراموش کرده اید؟</p>
-        </q-card-section>
-      </q-card>
+            <q-card-actions align="left">
+              <q-btn  style="width: 80px" color="blue-8" label="ورود" @click="login"/>
+            </q-card-actions>
+          </div>
+        </q-card>
+      </div>
     </div>
   </div>
+
 </template>
 
 <script>
+import { mixinAuth } from 'src/mixin/Mixins'
 export default {
-  name: 'Login',
+  name: 'Auth',
+  mixins: [mixinAuth],
+  data: () => ({
+    userLogin: false,
+    loadingList: false,
+    username: null,
+    password: null
+  }),
   created () {
-
-  },
-  data: function () {
-    return {
-      title: 'ورود',
-      username: '',
-      password: '',
-      repassword: '',
-      register: false,
-      passwordFieldType: 'password',
-      btnLabel: 'ورود',
-      visibility: false,
-      visibilityIcon: 'visibility'
+    if (this.getToken()) {
+      this.redirectTo()
     }
   },
   methods: {
-    required (val) {
-      return (val && val.length > 0)
+    getToken () {
+      return this.$store.getters['Auth/accessToken']
     },
-    diffPassword (val) {
-      const val2 = this.$refs.password.value
-      return (val && (val === val2))
-    },
-    short (val) {
-      return (val && val.length > 3)
-    },
-    isEmail (val) {
-      const emailPattern = /^(?=[a-zA-Z0-9@._%+-]{6,254}$)[a-zA-Z0-9._%+-]{1,64}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,63}$/
-      return (emailPattern.test(val) || 'لطفا یک ایمیل معتبر وارد کنید')
-    },
-    isNationalCode (val) {
-      const pattern = /^[0-9]{10}$/
-      return (pattern.test(val) || 'لطفا کد ملی معتبر وارد کنید')
-    },
-    isMobile (val) {
-      const pattern = /^09[0-9]{9}$/
-      return (pattern.test(val) || 'لطفا شماره همراه معتبر وارد کنید')
-    },
-    validate () {
-      if (this.register) {
-        this.$refs.username.validate()
-        this.$refs.username.validate()
-        this.$refs.password.validate()
-        this.$refs.repassword.validate()
-      } else {
-        this.$refs.username.validate()
-        this.$refs.password.validate()
-      }
-    },
-    canSubmit () {
-      return (!this.register && !this.$refs.username.hasError && (!this.$refs.password.hasError))
-    },
-    submit () {
-      this.validate()
 
-      if (this.canSubmit) {
-        this.$q.notify({
-          icon: 'done',
-          color: 'positive',
-          message: 'خوش آمدید'
-        })
-        this.$store.dispatch('Auth/login', { username: this.username, password: this.password })
-          .then(() => {
-            this.$router.push({ name: 'home' })
-          })
-          .catch(error => {
-            this.$q.notify({
-              icon: 'done',
-              color: 'positive',
-              message: 'مشکلی پیش آمده است'
-            })
-            console.log('error', error)
-          })
+    getEnter (e) {
+      const actions = {
+        pass: () => this.login(),
+        userName: () => this.$refs.pass.focus()
       }
+      if (e.keyCode === 13) actions[e.originalTarget.name].call()
     },
-    switchTypeForm () {
-      this.register = !this.register
-      this.title = this.register ? 'عضویت' : 'ورود'
-      this.btnLabel = this.register ? 'ورود به سیستم' : 'ورود'
+    redirectTo () {
+      this.$router.push({ name: 'Admin.User.Index' })
     },
-    switchVisibility () {
-      this.visibility = !this.visibility
-      this.passwordFieldType = this.visibility ? 'text' : 'password'
-      this.visibilityIcon = this.visibility ? 'visibility_off' : 'visibility'
+
+    login () {
+      this.loadingList = true
+      this.$store.dispatch('Auth/login', {
+        mobile: this.username,
+        password: this.password
+      })
+        .then(() => {
+          this.loadingList = false
+          this.$axios.defaults.headers.common.Authorization = 'Bearer ' + this.$store.getters['Auth/accessToken']
+          this.redirectTo()
+        })
+        .catch(err => {
+          console.log('in auth :', err)
+        })
     }
   }
 }
