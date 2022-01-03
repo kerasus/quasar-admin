@@ -5,7 +5,6 @@
         <q-card v-if="!userLogin" class="my-card q-mt-auto shadow-6">
           <q-card-section class="row bg-blue-8 text-white justify-between">
             <div class="row justify-center items-center text-h6">
-              <q-img src="img/3a-logo.png" alt="3a-logo" width="20px" />
               <p class="q-ml-md q-mb-none">ورود</p>
             </div>
             <q-avatar>
@@ -65,7 +64,7 @@ export default {
   }),
   created () {
     if (this.getToken()) {
-      this.getUserData(() => { this.redirectTo() })
+      this.redirectTo()
     }
   },
   methods: {
@@ -80,41 +79,12 @@ export default {
       }
       if (e.keyCode === 13) actions[e.originalTarget.name].call()
     },
-
     redirectTo () {
-      let redirectTo = window.localStorage.getItem('redirectTo')
-      if (!redirectTo) {
-        redirectTo = 'home'
-      }
-      this.$router.push({ name: redirectTo })
-    },
-
-    handleErr (err) {
-      this.loadingList = false
-      const messages = []
-      for (const key in err.data.errors) {
-        err.data.errors[key].forEach(message => {
-          this.$q.notify({
-            type: 'negative',
-            message: message,
-            position: 'top'
-          })
-        })
-      }
-      if (!err.data.errors) {
-        if (err.data.message) messages.push(err.data.message)
-        else messages.push(err.statusText)
-        this.$q.notify({
-          type: 'negative',
-          message: messages,
-          position: 'top'
-        })
-      }
+      this.$router.push({ name: 'Admin.User.Index' })
     },
 
     login () {
       this.loadingList = true
-      const that = this
       this.$store.dispatch('Auth/login', {
         mobile: this.username,
         password: this.password
@@ -122,11 +92,10 @@ export default {
         .then(() => {
           this.loadingList = false
           this.$axios.defaults.headers.common.Authorization = 'Bearer ' + this.$store.getters['Auth/accessToken']
-          that.getUserData(() => { this.redirectTo() })
+          this.redirectTo()
         })
         .catch(err => {
           console.log('in auth :', err)
-          this.handleErr(err.response)
         })
     }
   }
